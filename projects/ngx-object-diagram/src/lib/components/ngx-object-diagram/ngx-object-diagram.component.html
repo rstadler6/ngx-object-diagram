@@ -1,4 +1,4 @@
-<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg">
   <g>
     <g *ngFor="let obj of objs; let oi = index">
       <g
@@ -8,6 +8,16 @@
         [title]="obj[displayName] + ' : ' + obj[typeNameProp]"
         [trackFields]="trackFields"
       ></g>
+
+      <g *ngFor="let obj of trackAssocs(obj); let ai = index">
+        <g
+          ngx-object-diagram-entity
+          [x]="50 + (oi + ai) * 250"
+          [obj]="obj"
+          [title]="obj[displayName] + ' : ' + obj[typeNameProp]"
+          [trackFields]="trackFields"
+        ></g>
+      </g>
     </g>
   </g>
 </svg>

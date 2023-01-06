@@ -1,17 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
+import { Component, Input } from "@angular/core";
+import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 
 @Component({
-  selector: 'ngx-object-diagram',
-  templateUrl: 'ngx-object-diagram.component.html',
-  styleUrls: ['ngx-object-diagram.component.scss'],
+  selector: "ngx-object-diagram",
+  templateUrl: "ngx-object-diagram.component.html",
+  styleUrls: ["ngx-object-diagram.component.scss"],
 })
 export class NgxObjectDiagramComponent {
   @Input()
-  public typeNameProp: string = 'typeName';
+  public typeNameProp: string = "typeName";
 
   @Input()
-  public displayName: string = 'displayName';
+  public displayName: string = "displayName";
 
   @Input()
   public trackFields: (
@@ -19,6 +19,7 @@ export class NgxObjectDiagramComponent {
   ) => NgxObjectDiagramEntityField[] = (obj) => {
     return Object.keys(obj)
       .filter((key) => key !== this.typeNameProp && key !== this.displayName)
+      .filter((key) => !(obj[key] instanceof Array<Record<string, unknown>>))
       .map((key) => {
         return {
           fieldName: key,
@@ -28,18 +29,16 @@ export class NgxObjectDiagramComponent {
   };
 
   @Input()
-  public objs: Record<string, unknown>[] = [
-    {
-      displayName: 'geschaeft1',
-      typeName: 'Geschaeft',
-      titel: 'Testinhalt',
-      beginn: '01.01.2023',
-    },
-    {
-      displayName: 'geschaeft2',
-      typeName: 'Geschaeft',
-      titel: 'Testinhalt 13',
-      beginn: '05.01.2025',
-    },
-  ];
+  public trackAssocs: (
+    obj: Record<string, unknown>
+  ) => Record<string, unknown>[] = (obj) => {
+    return Object.keys(obj)
+      .filter((key) => obj[key] instanceof Array<Record<string, unknown>>)
+      .flatMap((key) => {
+        return obj[key] as Record<string, unknown>[];
+      });
+  };
+
+  @Input()
+  public objs: Record<string, unknown>[] = [];
 }

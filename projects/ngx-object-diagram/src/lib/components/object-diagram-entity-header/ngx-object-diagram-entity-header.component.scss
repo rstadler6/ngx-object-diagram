@@ -1,3 +1,13 @@
 .ngx-obj-header-title {
   font-weight: bold;
 }
+
+text {
+  fill: var(--ngx-obj-diagram-header-font-color);
+  font-size: var(--ngx-obj-diagram-header-font-size);
+  font-family: var(--ngx-obj-diagram-font-family);
+}
+
+rect {
+  stroke: var(--ngx-obj-diagram-stroke-color);
+}

@@ -1,12 +1,18 @@
-<svg:g [attr.x]="x">
-  <g ngx-object-diagram-entity-header [x]="x" [text]="title + ''"></g>
+<svg:g
+  (mousedown)="isDragging = true"
+  (mouseup)="isDragging = false"
+  (mouseleave)="isDragging = false"
+  (mousemove)="onDrag($event)"
+  [ngClass]="{ 'ngx-object-diagram-entity-dragging': isDragging }"
+>
+  <g ngx-object-diagram-entity-header [x]="x" [y]="y" [text]="title + ''"></g>
 
   <g *ngFor="let field of trackFields(obj); let fi = index">
     <rect
       stroke="blue"
       height="40"
       width="225"
-      [attr.y]="150 + fi * 40"
+      [attr.y]="y + fi * 40"
       [attr.x]="x"
       fill="#ffffff"
     />
@@ -15,7 +21,7 @@
       text-anchor="start"
       font-family="Noto Sans JP"
       font-size="16"
-      [attr.y]="175 + fi * 40"
+      [attr.y]="y + 25 + fi * 40"
       [attr.x]="x"
       stroke-width="0"
       stroke="blue"
