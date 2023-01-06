@@ -19,11 +19,11 @@ export class NgxObjectDiagramComponent {
   ) => NgxObjectDiagramEntityField[] = (obj) => {
     return Object.keys(obj)
       .filter((key) => key !== this.typeNameProp && key !== this.displayName)
-      .filter((key) => !(obj[key] instanceof Array<Record<string, unknown>>))
       .map((key) => {
         return {
           fieldName: key,
           fieldKey: key,
+          isAssoc: obj[key] instanceof Array<Record<string, unknown>>,
         };
       });
   };

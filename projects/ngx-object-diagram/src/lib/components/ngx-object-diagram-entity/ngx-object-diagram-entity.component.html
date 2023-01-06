@@ -9,7 +9,6 @@
 
   <g *ngFor="let field of trackFields(obj); let fi = index">
     <rect
-      stroke="blue"
       height="40"
       width="225"
       [attr.y]="y + fi * 40"
@@ -19,15 +18,12 @@
     <text
       xml:space="preserve"
       text-anchor="start"
-      font-family="Noto Sans JP"
       font-size="16"
       [attr.y]="y + 25 + fi * 40"
       [attr.x]="x"
       stroke-width="0"
-      stroke="blue"
-      fill="blue"
     >
-      {{ field.fieldName }} : {{ obj[field.fieldKey] }}
+      {{ field.fieldName }}= {{ !field.isAssoc ? obj[field.fieldKey] : "[]" }}
     </text>
   </g>
 </svg:g>

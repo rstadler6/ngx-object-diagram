@@ -12,7 +12,7 @@
       <g *ngFor="let obj of trackAssocs(obj); let ai = index">
         <g
           ngx-object-diagram-entity
-          [x]="50 + (oi + ai) * 250"
+          [x]="50 + (oi + 1 + ai) * 250"
           [obj]="obj"
           [title]="obj[displayName] + ' : ' + obj[typeNameProp]"
           [trackFields]="trackFields"
