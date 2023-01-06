@@ -1,0 +1,13 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <g *ngFor="let obj of objs; let oi = index">
+      <g
+        ngx-object-diagram-entity
+        [x]="50 + oi * 250"
+        [obj]="obj"
+        [title]="obj[displayName] + ' : ' + obj[typeNameProp]"
+        [trackFields]="trackFields"
+      ></g>
+    </g>
+  </g>
+</svg>

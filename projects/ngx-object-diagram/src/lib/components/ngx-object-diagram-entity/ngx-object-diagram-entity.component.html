@@ -1,0 +1,27 @@
+<svg:g [attr.x]="x">
+  <g ngx-object-diagram-entity-header [x]="x" [text]="title + ''"></g>
+
+  <g *ngFor="let field of trackFields(obj); let fi = index">
+    <rect
+      stroke="blue"
+      height="40"
+      width="225"
+      [attr.y]="150 + fi * 40"
+      [attr.x]="x"
+      fill="#ffffff"
+    />
+    <text
+      xml:space="preserve"
+      text-anchor="start"
+      font-family="Noto Sans JP"
+      font-size="16"
+      [attr.y]="175 + fi * 40"
+      [attr.x]="x"
+      stroke-width="0"
+      stroke="blue"
+      fill="blue"
+    >
+      {{ field.fieldName }} : {{ obj[field.fieldKey] }}
+    </text>
+  </g>
+</svg:g>

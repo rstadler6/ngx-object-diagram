@@ -1,0 +1,14 @@
+rect,
+text {
+  stroke: #000;
+}
+
+text {
+  fill: #000;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:host {
+  --entity-min-width: 225px;
+  --entity-min-height: 300px;
+}
