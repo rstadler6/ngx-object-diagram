@@ -13,6 +13,11 @@ Please note, that it is not a target or intention of it to reach uml conformity.
 
 ## Features
 
-- customize Color, Font-Family and Sizes via css-variables
+- customize color, font-family and sizes via css-variables
 - Entities can be dragged
 - Support for simple entities as well as overrides for more complex objects
+
+# Status
+
+This Project is heavy work in progress and it is likely to change and or break.
+You are welcome to send Pullrequests for improvements or new features.

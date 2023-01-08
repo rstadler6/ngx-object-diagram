@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 
 @Component({
@@ -25,6 +25,9 @@ export class NgxObjectDiagramEntityComponent {
   @Input()
   public obj: Record<string, unknown> = {};
 
+  @Output()
+  public onDragged: EventEmitter<void> = new EventEmitter<void>();
+
   @Input()
   public trackFields: (
     obj: Record<string, unknown>
@@ -40,5 +43,6 @@ export class NgxObjectDiagramEntityComponent {
 
     this.x = event.offsetX - 50;
     this.y = event.offsetY;
+    this.onDragged.emit();
   }
 }

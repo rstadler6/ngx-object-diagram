@@ -2,6 +2,7 @@
   <g>
     <g *ngFor="let obj of objs; let oi = index">
       <g
+        #objComp
         ngx-object-diagram-entity
         [x]="50 + oi * 250"
         [obj]="obj"
@@ -9,14 +10,18 @@
         [trackFields]="trackFields"
       ></g>
 
-      <g *ngFor="let obj of trackAssocs(obj); let ai = index">
+      <g *ngFor="let assocObj of trackAssocs(obj); let ai = index">
         <g
+          #assocObjComp
           ngx-object-diagram-entity
-          [x]="50 + (oi + 1 + ai) * 250"
-          [obj]="obj"
+          [x]="50 + (oi + 1) * 350"
+          [y]="150 + ai * 200"
+          [obj]="assocObj"
           [title]="obj[displayName] + ' : ' + obj[typeNameProp]"
           [trackFields]="trackFields"
         ></g>
+
+        <g ngx-object-diagram-line [elem1]="objComp" [elem2]="assocObjComp"></g>
       </g>
     </g>
   </g>

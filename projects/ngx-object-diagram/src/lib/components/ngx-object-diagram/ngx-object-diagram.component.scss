@@ -7,6 +7,9 @@
   --ngx-obj-diagram-header-font-size: 16px;
   --ngx-obj-diagram-header-font-color: #000;
 
+  --ngx-obj-diagram-line-stroke-color: #000;
+  --ngx-obj-diagram-line-stroke-width: 2px;
+
   svg {
     height: var(--ngx-obj-diagram-height, 600px);
     width: var(--ngx-obj-diagram-width, 800px);
