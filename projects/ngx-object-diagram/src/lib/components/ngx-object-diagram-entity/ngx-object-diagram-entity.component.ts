@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  Output,
+} from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 
 @Component({
@@ -35,12 +42,30 @@ export class NgxObjectDiagramEntityComponent {
 
   public isDragging = false;
 
+  @HostBinding("style.cursor")
+  public get cursor(): string {
+    return this.isDragging ? "grabbing !important" : "default";
+  }
+
+  @HostListener("mousedown")
+  public onMousedown() {
+    console.log("click");
+    this.isDragging = true;
+    console.log("click", this.isDragging);
+  }
+
+  @HostListener("mouseup")
+  public onMouseUp() {
+    this.isDragging = false;
+  }
+
+  @HostListener("mousemove", ["$event"])
   public onDrag(event: MouseEvent) {
     if (!this.isDragging) {
       return;
     }
-    event.preventDefault();
 
+    event.preventDefault();
     this.x = event.offsetX - 50;
     this.y = event.offsetY;
     this.onDragged.emit();

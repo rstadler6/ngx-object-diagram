@@ -1,10 +1,4 @@
-<svg:g
-  (mousedown)="isDragging = true"
-  (mouseup)="isDragging = false"
-  (mouseleave)="isDragging = false"
-  (mousemove)="onDrag($event)"
-  [ngClass]="{ 'ngx-object-diagram-entity-dragging': isDragging }"
->
+<svg:g>
   <g ngx-object-diagram-entity-header [x]="x" [y]="y" [text]="title + ''"></g>
 
   <g *ngFor="let field of trackFields(obj); let fi = index">
