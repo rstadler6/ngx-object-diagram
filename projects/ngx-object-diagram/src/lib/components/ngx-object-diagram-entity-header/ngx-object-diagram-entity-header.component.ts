@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: "[ngx-object-diagram-entity-header]",
@@ -14,4 +14,11 @@ export class NgxObjectDiagramEntityHeaderComponent {
 
   @Input()
   public y: number = 0;
+
+  @Output()
+  collapse: EventEmitter<void> = new EventEmitter();
+
+  onCollapse() {
+    this.collapse.emit();
+  }
 }

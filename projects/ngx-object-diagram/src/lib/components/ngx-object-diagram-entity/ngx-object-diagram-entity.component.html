@@ -1,23 +1,25 @@
-<svg:g>
-  <g ngx-object-diagram-entity-header [x]="x" [y]="y" [text]="title + ''"></g>
+<svg>
+  <g ngx-object-diagram-entity-header (collapse)="onCollapse()" [x]="x" [y]="y" [text]="title + ''"></g>
 
-  <g *ngFor="let field of trackFields(obj); let fi = index">
-    <rect
-      height="40"
-      width="225"
-      [attr.y]="y + fi * 40"
-      [attr.x]="x"
-      fill="#ffffff"
-    />
-    <text
-      xml:space="preserve"
-      text-anchor="start"
-      font-size="16"
-      [attr.y]="y + 25 + fi * 40"
-      [attr.x]="x"
-      stroke-width="0"
-    >
+  <ng-container *ngIf="!collapsed">
+    <g  *ngFor="let field of trackFields(obj); let fi = index">
+      <rect
+        height="40"
+        width="225"
+        [attr.y]="y + fi * 40"
+        [attr.x]="x"
+        fill="#ffffff"
+      />
+      <text
+        xml:space="preserve"
+        text-anchor="start"
+        font-size="16"
+        [attr.y]="y + 25 + fi * 40"
+        [attr.x]="x"
+        stroke-width="0"
+      >
       {{ field.fieldName }}= {{ !field.isAssoc ? obj[field.fieldKey] : "[]" }}
     </text>
-  </g>
-</svg:g>
+    </g>
+  </ng-container>
+</svg>

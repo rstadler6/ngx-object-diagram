@@ -14,6 +14,8 @@ import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-enti
   styleUrls: ["./ngx-object-diagram-entity.component.scss"],
 })
 export class NgxObjectDiagramEntityComponent {
+  public collapsed = false;
+
   @Input()
   public x = 300;
 
@@ -49,9 +51,9 @@ export class NgxObjectDiagramEntityComponent {
 
   @HostListener("mousedown")
   public onMousedown() {
-    console.log("click");
+    //console.log("click");
     this.isDragging = true;
-    console.log("click", this.isDragging);
+    //console.log("click", this.isDragging);
   }
 
   @HostListener("mouseup")
@@ -69,5 +71,9 @@ export class NgxObjectDiagramEntityComponent {
     this.x = event.offsetX - 50;
     this.y = event.offsetY;
     this.onDragged.emit();
+  }
+
+  public onCollapse() {
+    this.collapsed = !this.collapsed;
   }
 }

@@ -1,7 +1,7 @@
-<svg:g>
+<svg>
   <rect
     stroke="#000"
-    height="50"
+    height="40"
     width="225"
     [attr.y]="y - 40"
     [attr.x]="x"
@@ -18,4 +18,10 @@
   >
     {{ text }}
   </text>
-</svg:g>
+  <g
+    ngx-collapse-button
+    (collapse)="onCollapse()"
+    [x]="x + 195"
+    [y]="y - 15"
+  />
+</svg>
