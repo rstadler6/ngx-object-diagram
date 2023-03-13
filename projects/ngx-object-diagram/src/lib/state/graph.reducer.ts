@@ -18,12 +18,12 @@ export const graphReducer = createReducer<GraphState>(
       entities: _p.entities
     }
   }),
-  on(GraphActions.collapseEntity, (state): GraphState => {
+  /*on(GraphActions.collapseEntity, (state): GraphState => {
     return {
       ...state,
       test: !state.test
     };
-  })
+  })*/
 )
 
 export const getGraphFeatureState = createFeatureSelector<GraphState>('graph');

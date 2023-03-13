@@ -7,6 +7,8 @@ import { NgxObjectDiagramLineComponent } from "./components/ngx-object-diagram-l
 import { NgxCollapseButtonComponent } from './components/ngx-collapse-button/ngx-collapse-button.component';
 import { StoreModule } from "@ngrx/store";
 import { graphReducer } from "./state/graph.reducer";
+import { NgxReloadButtonComponent } from './components/ngx-reload-button/ngx-reload-button.component';
+import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ngx-add-assoc-button.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { graphReducer } from "./state/graph.reducer";
     NgxObjectDiagramEntityComponent,
     NgxObjectDiagramLineComponent,
     NgxCollapseButtonComponent,
+    NgxReloadButtonComponent,
+    NgxAddAssocButtonComponent,
   ],
   imports: [
     CommonModule,

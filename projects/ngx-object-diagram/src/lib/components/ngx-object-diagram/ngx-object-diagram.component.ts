@@ -11,7 +11,7 @@ import { Entity } from "../../model/entity";
   templateUrl: "ngx-object-diagram.component.html",
   styleUrls: ["ngx-object-diagram.component.scss"],
 })
-export class NgxObjectDiagramComponent implements OnInit, OnChanges {
+export class NgxObjectDiagramComponent implements OnInit {
   @Input()
   public typeNameProp: string = "typeName";
 
@@ -28,8 +28,8 @@ export class NgxObjectDiagramComponent implements OnInit, OnChanges {
         return {
           fieldName: key,
           fieldKey: key,
-          isAssoc: obj[key] instanceof Array<Record<string, unknown>>,
-        };
+          isAssoc: obj[key] instanceof Array<Record<string, unknown>>
+        }
       });
   };
 
@@ -51,9 +51,9 @@ export class NgxObjectDiagramComponent implements OnInit, OnChanges {
 
   constructor(private store: Store<AppState>) {}
 
-  ngOnChanges(): void {
+  /*ngOnChanges(): void {
     
-  }
+  }*/
 
   ngOnInit(): void {
     this.store.select(getEntities).subscribe(
