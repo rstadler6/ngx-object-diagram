@@ -5,6 +5,8 @@ import { NgxObjectDiagramEntityComponent } from "./components/ngx-object-diagram
 import { NgxObjectDiagramEntityHeaderComponent } from "./components/ngx-object-diagram-entity-header/ngx-object-diagram-entity-header.component";
 import { NgxObjectDiagramLineComponent } from "./components/ngx-object-diagram-line/ngx-object-diagram-line.component";
 import { NgxCollapseButtonComponent } from './components/ngx-collapse-button/ngx-collapse-button.component';
+import { StoreModule } from "@ngrx/store";
+import { graphReducer } from "./state/graph.reducer";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,10 @@ import { NgxCollapseButtonComponent } from './components/ngx-collapse-button/ngx
     NgxObjectDiagramLineComponent,
     NgxCollapseButtonComponent,
   ],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    StoreModule.forFeature('graph', {graphReducer})
+  ],
   exports: [NgxObjectDiagramComponent],
 })
 export class NgxObjectDiagramModule {}
