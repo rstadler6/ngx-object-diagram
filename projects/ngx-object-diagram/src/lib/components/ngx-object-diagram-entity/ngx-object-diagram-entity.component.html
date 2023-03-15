@@ -1,8 +1,8 @@
 <svg>
   <g ngx-object-diagram-entity-header (collapse)="onCollapse()" [x]="x" [y]="y" [text]="title + ''"></g>
 
-  <ng-container *ngIf="!collapsed">
-    <g  *ngFor="let field of trackFields(obj); let fi = index">
+  <ng-container *ngIf="!collapsed && entity">
+    <g *ngFor="let field of trackFields(entity.values); let fi = index">
       <rect
         height="40"
         width="225"
@@ -18,15 +18,20 @@
         [attr.x]="x"
         stroke-width="0"
       >
-      {{ field.fieldName }}= {{ !field.isAssoc ? obj[field.fieldKey] : "[]" }}
-    </text>
+      {{ field.fieldName }} = {{ !field.isAssoc ? entity.values[field.fieldKey] : "[]" }}
+      </text>
+      <g *ngIf="field.isAssoc"
+        ngx-add-assoc-button
+        [x]="x + 200"
+        [y]="y + 23 + fi * 40"
+      ></g>
     </g>
     <g
         ngx-reload-button
         [height]=40
         [width]=225
         [x]="x"
-        [y]="y + 25 + trackFields(obj).length * 40"
+        [y]="y + 25 + trackFields(entity.values).length * 40"
     />
   </ng-container>
 </svg>

@@ -1,17 +1,17 @@
 import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
-import * as GraphActions from "../../state/graph.actions"
 import { Store } from "@ngrx/store";
 import { AppState } from "../../state/app.state";
-import { getEntities } from "../../state/graph.reducer";
+import { selectEntities } from "../../state/graph.reducer";
 import { Entity } from "../../model/entity";
+import { setEntities } from "../../state/graph.actions";
 
 @Component({
   selector: "ngx-object-diagram",
   templateUrl: "ngx-object-diagram.component.html",
   styleUrls: ["ngx-object-diagram.component.scss"],
 })
-export class NgxObjectDiagramComponent implements OnInit {
+export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   @Input()
   public typeNameProp: string = "typeName";
 
@@ -49,14 +49,21 @@ export class NgxObjectDiagramComponent implements OnInit {
 
   public entities: Entity[] = [];
 
-  constructor(private store: Store<AppState>) {}
+  private readonly graphId: string;
 
-  /*ngOnChanges(): void {
-    
-  }*/
+  constructor(private store: Store<AppState>) {
+    this.graphId = crypto.randomUUID();
+  }
+
+  ngOnChanges(): void {
+    console.log("changes");
+    this.store.dispatch(setEntities({ objs: this.objs, graphId: this.graphId }));
+  }
 
   ngOnInit(): void {
-    this.store.select(getEntities).subscribe(
-      entities => this.entities = entities
+    this.store.select(selectEntities).subscribe({
+      next(entities) { console.log(entities?.length)}}
+      //entities => console.log("values received: " + entities?.length)
+      //entities => this.entities = entities
     )}
 }

@@ -7,6 +7,10 @@ import {
   Output,
 } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
+import { createAction, props, Store } from "@ngrx/store";
+import { Entity } from "../../model/entity";
+import { AppState } from "../../state/app.state";
+import { collapseEntity } from "../../state/graph.actions";
 
 @Component({
   selector: "[ngx-object-diagram-entity]",
@@ -31,9 +35,6 @@ export class NgxObjectDiagramEntityComponent {
   @Input()
   public title: string | unknown = "";
 
-  @Input()
-  public obj: Record<string, unknown> = {};
-
   @Output()
   public onDragged: EventEmitter<void> = new EventEmitter<void>();
 
@@ -41,6 +42,9 @@ export class NgxObjectDiagramEntityComponent {
   public trackFields: (
     obj: Record<string, unknown>
   ) => NgxObjectDiagramEntityField[] = () => [];
+
+  @Input()
+  public entity: Entity | undefined;
 
   public isDragging = false;
 
@@ -73,7 +77,12 @@ export class NgxObjectDiagramEntityComponent {
     this.onDragged.emit();
   }
 
+  constructor(private store: Store<AppState>) {}
+
   public onCollapse() {
-    this.collapsed = !this.collapsed;
+    if (this.entity) {
+      this.store.dispatch(collapseEntity({ entity: this.entity }));
+      this.collapsed = !this.collapsed;
+    }
   }
 }
