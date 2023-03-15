@@ -1,6 +1,7 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import * as GraphActions from "./graph.actions"
 import { Entity } from "../model/entity";
+import { immerOn } from "ngrx-immer/store";
 
 export interface GraphState {
   currentGraphId: string,
@@ -14,7 +15,13 @@ const initialState: GraphState = {
 
 export const graphReducer = createReducer<GraphState>(
   initialState,
-  on(GraphActions.setEntities, (state, { objs, graphId }): GraphState => {
+  immerOn(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
+    return {
+      ...state,
+      currentGraphId: graphId
+    }
+  }),
+  immerOn(GraphActions.setEntities, (state, { objs, graphId }): GraphState => {
     return {
       ...state,
       /*graphs: Object.assign([], state.graphs, { [graphId]: objs.map(obj => {
@@ -24,38 +31,14 @@ export const graphReducer = createReducer<GraphState>(
       graphs: {...state.graphs, [graphId]: objs.map(obj => {
         return { guid: obj['guid'] as string, values: obj, collapsed: false }
       })}
-        /*state.graphs.map(graph => {
-        if (graph.key == graphId) {
-          graph.value.objs = objs.map(obj => {
-            return { guid: obj['guid'], values: obj, collapsed: false }
-          });
-        }
-        reurn graph;*/
-
-        /*state.graphs.map(graph => {
-          if (graph.key == graphId) {
-            graph.value.objs = objs.map(obj => {
-              return { guid: obj['guid'], values: obj, collapsed: false }
-            });
-          }
-          return graph;
-        })
-        }*/
     }
-  }),
-  /*on(GraphActions.collapseEntity, (state, { entity, graphId }): GraphState => {
-    return {
-      ...state,
-      entities: state.entities.map(e => {
-        if (e.guid == entity.guid)
-          e.collapsed = !e.collapsed;
-        return e;
-      })
-    };
-  })*/
+  })
 )
 
-export const selectGraphFeatureState = createFeatureSelector<GraphState>('graph');
+export const selectGraphFeatureState = createFeatureSelector<GraphState>((() => {
+  console.log("k")
+  return 'graph';
+})());
 
 export const selectCurrentGraphId = createSelector(
   selectGraphFeatureState,
@@ -65,5 +48,7 @@ export const selectCurrentGraphId = createSelector(
 export const selectEntities = createSelector(
   selectGraphFeatureState,
   selectCurrentGraphId,
-  (state, graphId) => state.graphs[graphId]
+  (state, graphId) => {
+    return state?.graphs?.[graphId];
+  }
 );

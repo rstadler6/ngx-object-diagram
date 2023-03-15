@@ -1,6 +1,11 @@
 import { createAction, props } from "@ngrx/store";
 import { Entity } from "../model/entity";
 
+export const setCurrentGraphId = createAction(
+  "[Graph] Set Current Graph Id",
+  props<{ graphId: string }>()
+)
+
 export const setEntities = createAction(
   "[Graph] Set Entities",
   props<{ objs: Record<string, unknown>[], graphId: string }>()

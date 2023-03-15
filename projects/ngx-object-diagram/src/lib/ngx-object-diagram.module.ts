@@ -24,8 +24,7 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
   ],
   imports: [
     CommonModule,
-    StoreModule.forRoot({}),
-    StoreModule.forFeature('graph', {graphReducer}),
+    StoreModule.forRoot({ graph: graphReducer }),
     StoreDevtoolsModule.instrument({})
   ],
   exports: [NgxObjectDiagramComponent],

@@ -1,10 +1,11 @@
 import { Component, Input, OnChanges, OnInit } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import { AppState } from "../../state/app.state";
-import { selectEntities } from "../../state/graph.reducer";
+import { selectEntities, selectGraphFeatureState } from "../../state/graph.reducer";
 import { Entity } from "../../model/entity";
-import { setEntities } from "../../state/graph.actions";
+import { setCurrentGraphId, setEntities } from "../../state/graph.actions";
+import { skip } from "rxjs";
 
 @Component({
   selector: "ngx-object-diagram",
@@ -61,9 +62,10 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   }
 
   ngOnInit(): void {
-    this.store.select(selectEntities).subscribe({
-      next(entities) { console.log(entities?.length)}}
-      //entities => console.log("values received: " + entities?.length)
-      //entities => this.entities = entities
-    )}
+    this.store.dispatch(setCurrentGraphId({ graphId: this.graphId }));
+    console.log("ngOnInit");
+    this.store.pipe(select(selectEntities), skip(0)).subscribe(
+      entities => this.entities = entities
+    );
+  }
 }
