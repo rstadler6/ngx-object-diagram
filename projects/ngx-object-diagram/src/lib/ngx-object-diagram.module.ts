@@ -9,6 +9,7 @@ import { StoreModule } from "@ngrx/store";
 import { graphReducer } from "./state/graph.reducer";
 import { NgxReloadButtonComponent } from './components/ngx-reload-button/ngx-reload-button.component';
 import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ngx-add-assoc-button.component';
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ng
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature('graph', {graphReducer})
+    StoreModule.forRoot({}),
+    StoreModule.forFeature('graph', {graphReducer}),
+    StoreDevtoolsModule.instrument({})
   ],
   exports: [NgxObjectDiagramComponent],
 })
