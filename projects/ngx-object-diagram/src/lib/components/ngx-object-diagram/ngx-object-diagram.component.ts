@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnChanges, OnInit } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 import { select, Store } from "@ngrx/store";
 import { AppState } from "../../state/app.state";
@@ -47,6 +47,11 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
 
   @Input()
   public objs: Record<string, unknown>[] = [];
+
+  @HostListener("mouseenter")
+  public onMouseEnter() {
+    //this.store.dispatch(setCurrentGraphId({ graphId: this.graphId }));
+  }
 
   public entities: Entity[] = [];
 
