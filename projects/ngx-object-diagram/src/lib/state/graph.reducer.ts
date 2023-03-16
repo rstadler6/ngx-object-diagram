@@ -2,6 +2,7 @@ import { createReducer, on } from "@ngrx/store";
 import * as GraphActions from "./graph.actions"
 import { Entity } from "../model/entity";
 import { immerOn } from "ngrx-immer/store";
+import { navigated } from "./router.actions";
 
 export interface GraphState {
   currentGraphId: string,
@@ -22,6 +23,7 @@ export const graphReducer = createReducer<GraphState>(
     }
   }),
   on(GraphActions.setEntities, (state, { objs, graphId }): GraphState => {
+    console.log("setEntities graphId: " + graphId);
     return {
       ...state,
       graphs: {...state.graphs, [graphId]: objs.map(obj => {

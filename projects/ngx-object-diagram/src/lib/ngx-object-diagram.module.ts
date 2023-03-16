@@ -10,6 +10,8 @@ import { graphReducer } from "./state/graph.reducer";
 import { NgxReloadButtonComponent } from './components/ngx-reload-button/ngx-reload-button.component';
 import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ngx-add-assoc-button.component';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { RouterModule } from "@angular/router";
+import { routerReducer, StoreRouterConnectingModule } from "@ngrx/router-store";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,11 @@ import { StoreDevtoolsModule } from "@ngrx/store-devtools";
   ],
   imports: [
     CommonModule,
-    StoreModule.forRoot({ graph: graphReducer }),
+    StoreModule.forRoot({ graph: graphReducer, router: routerReducer }),
+    RouterModule.forRoot([
+      //{ path: ':graphId', component: NgxObjectDiagramComponent }
+    ]),
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({})
   ],
   exports: [NgxObjectDiagramComponent],
