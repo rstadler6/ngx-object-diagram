@@ -15,23 +15,26 @@ const initialState: GraphState = {
 
 export const graphReducer = createReducer<GraphState>(
   initialState,
-  immerOn(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
+  on(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
     return {
       ...state,
       currentGraphId: graphId
     }
   }),
-  immerOn(GraphActions.setEntities, (state, { objs, graphId }): GraphState => {
+  on(GraphActions.setEntities, (state, { objs, graphId }): GraphState => {
     return {
       ...state,
-      /*graphs: Object.assign([], state.graphs, { [graphId]: objs.map(obj => {
-          return { guid: obj['guid'], values: obj, collapsed: false }
-        })
-      }),*/
       graphs: {...state.graphs, [graphId]: objs.map(obj => {
         return { guid: obj['guid'] as string, values: obj, collapsed: false }
       })}
     }
+  }),
+  immerOn(GraphActions.collapseEntity, (state, { entity }) => {
+    //entity.collapsed = true;
+    // TODO: make better
+    // graphId instead of state.currentGraphId?
+    // TODO: fix
+    state.graphs[state.currentGraphId]!.find(e => e.guid == entity.guid)!.collapsed = !entity.collapsed;
   })
 )
 
@@ -51,4 +54,14 @@ export const selectEntities = createSelector(
   (state, graphId) => {
     return state?.graphs?.[graphId];
   }
+);
+
+export const selectEntity = (entityGuid: string) =>
+  createSelector(selectEntities,
+    entities => entities?.find(e => e.guid == entityGuid)
+);
+
+export const selectCollapsed = (entityGuid: string) =>
+  createSelector(selectEntity(entityGuid),
+    entity => entity?.collapsed
 );

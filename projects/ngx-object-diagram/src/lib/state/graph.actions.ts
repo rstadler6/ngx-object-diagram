@@ -13,7 +13,7 @@ export const setEntities = createAction(
 
 export const collapseEntity = createAction(
   "[Graph] Collapse Entity",
-  props<{ entity: Entity }>()
+  props<{ entity: Entity/*, graphId: string*/ }>()
 )
 
 export const addAssoc = createAction(

@@ -3,23 +3,22 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
-  Input,
-  Output,
+  Input, OnInit,
+  Output
 } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 import { createAction, props, Store } from "@ngrx/store";
 import { Entity } from "../../model/entity";
 import { AppState } from "../../state/app.state";
 import { collapseEntity } from "../../state/graph.actions";
+import { selectEntity } from "../../state/graph.reducer";
 
 @Component({
   selector: "[ngx-object-diagram-entity]",
   templateUrl: "./ngx-object-diagram-entity.component.html",
   styleUrls: ["./ngx-object-diagram-entity.component.scss"],
 })
-export class NgxObjectDiagramEntityComponent {
-  public collapsed = false;
-
+export class NgxObjectDiagramEntityComponent implements OnInit {
   @Input()
   public x = 300;
 
@@ -82,7 +81,12 @@ export class NgxObjectDiagramEntityComponent {
   public onCollapse() {
     if (this.entity) {
       this.store.dispatch(collapseEntity({ entity: this.entity }));
-      this.collapsed = !this.collapsed;
+    }
+  }
+
+  public ngOnInit() {
+    if (this.entity) {
+      this.store.select(selectEntity(this.entity?.guid)).subscribe(entity => this.entity = entity);
     }
   }
 }

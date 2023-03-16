@@ -1,7 +1,7 @@
 <svg>
   <g ngx-object-diagram-entity-header (collapse)="onCollapse()" [x]="x" [y]="y" [text]="title + ''"></g>
 
-  <ng-container *ngIf="!collapsed && entity">
+  <ng-container *ngIf="entity && !entity.collapsed">
     <g *ngFor="let field of trackFields(entity.values); let fi = index">
       <rect
         height="40"
