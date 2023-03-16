@@ -80,7 +80,7 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
 
   public onCollapse() {
     if (this.entity) {
-      this.store.dispatch(collapseEntity({ entity: this.entity }));
+      //this.store.dispatch(collapseEntity({ entity: this.entity }));
     }
   }
 

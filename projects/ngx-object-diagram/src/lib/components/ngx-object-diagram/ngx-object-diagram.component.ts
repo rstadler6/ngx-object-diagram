@@ -4,8 +4,8 @@ import { select, Store } from "@ngrx/store";
 import { AppState } from "../../state/app.state";
 import { selectCurrentGraphId, selectEntities } from "../../state/graph.selectors";
 import { Entity } from "../../model/entity";
-import { setCurrentGraphId, setEntities } from "../../state/graph.actions";
 import { skip } from "rxjs";
+import { setEntities } from "../../state/entity.actions";
 
 @Component({
   selector: "ngx-object-diagram",
@@ -61,7 +61,7 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(): void {
-    this.store.dispatch(setEntities({ objs: this.objs, graphId: this.graphId }));
+    this.store.dispatch(setEntities({ objs: this.objs }));
   }
 
   ngOnInit(): void {
@@ -72,6 +72,6 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
       id => this.graphId = id
     );
 
-    this.store.dispatch(setEntities({ objs: this.objs, graphId: this.graphId }));
+    this.store.dispatch(setEntities({ objs: this.objs }));
   }
 }

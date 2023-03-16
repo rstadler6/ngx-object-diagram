@@ -3,20 +3,21 @@ import * as GraphActions from "./graph.actions"
 import { Entity } from "../model/entity";
 import { immerOn } from "ngrx-immer/store";
 import { navigated } from "./router.actions";
+import { GraphEntityState } from "./entity.reducer";
 
 export interface GraphState {
   currentGraphId: string,
-  graphs: Record<string, Entity[]>;
+  entities: GraphEntityState;
 }
 
 const initialState: GraphState = {
   currentGraphId: "",
-  graphs: {}
+  entities: {}
 }
 
 export const graphReducer = createReducer<GraphState>(
   initialState,
-  on(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
+  /*on(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
     return {
       ...state,
       currentGraphId: graphId
@@ -37,5 +38,5 @@ export const graphReducer = createReducer<GraphState>(
     // graphId instead of state.currentGraphId?
     // TODO: fix
     state.graphs[state.currentGraphId]!.find(e => e.guid == entity.guid)!.collapsed = !entity.collapsed;
-  })
+  })*/
 )
