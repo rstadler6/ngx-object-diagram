@@ -2,7 +2,7 @@ import { Component, HostListener, Input, OnChanges, OnInit } from "@angular/core
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 import { select, Store } from "@ngrx/store";
 import { AppState } from "../../state/app.state";
-import { selectEntities } from "../../state/graph.reducer";
+import { selectEntities } from "../../state/graph.selectors";
 import { Entity } from "../../model/entity";
 import { setCurrentGraphId, setEntities } from "../../state/graph.actions";
 import { skip } from "rxjs";

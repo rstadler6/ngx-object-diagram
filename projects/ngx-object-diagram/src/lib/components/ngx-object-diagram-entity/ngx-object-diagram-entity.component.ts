@@ -7,11 +7,11 @@ import {
   Output
 } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
-import { createAction, props, Store } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { Entity } from "../../model/entity";
 import { AppState } from "../../state/app.state";
 import { collapseEntity } from "../../state/graph.actions";
-import { selectEntity } from "../../state/graph.reducer";
+import { selectEntity } from "../../state/graph.selectors";
 
 @Component({
   selector: "[ngx-object-diagram-entity]",
