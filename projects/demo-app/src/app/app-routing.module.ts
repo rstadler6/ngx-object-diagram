@@ -5,7 +5,8 @@ import { AssocUsageComponent } from "./components/assoc-usage/assoc-usage.compon
 
 const routes: Routes = [
   { path: '123', component: BasicUsageComponent },
-  { path: '456', component: AssocUsageComponent }
+  { path: '456', component: AssocUsageComponent },
+  { path: '',   redirectTo: '/123', pathMatch: 'full' }
 ];
 
 @NgModule({

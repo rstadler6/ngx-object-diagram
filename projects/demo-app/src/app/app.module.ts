@@ -5,10 +5,11 @@ import { NgxObjectDiagramModule } from 'projects/ngx-object-diagram/src/public-a
 import { AppComponent } from './app.component';
 import { BasicUsageComponent } from './components/basic-usage/basic-usage.component';
 import { AssocUsageComponent } from './components/assoc-usage/assoc-usage.component';
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
   declarations: [AppComponent, BasicUsageComponent, AssocUsageComponent],
-  imports: [BrowserModule, NgxObjectDiagramModule],
+  imports: [BrowserModule, NgxObjectDiagramModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })
