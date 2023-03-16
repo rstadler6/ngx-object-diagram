@@ -4,19 +4,31 @@ import { Entity } from "../model/entity";
 import { immerOn } from "ngrx-immer/store";
 import { navigated } from "./router.actions";
 import { GraphEntityState } from "./entity.reducer";
+import { createEntityAdapter, EntityState } from "@ngrx/entity";
 
-export interface GraphState {
-  currentGraphId: string,
-  entities: GraphEntityState;
+export interface Graph {
+  id: string;
+  entityIds: string[];
 }
 
-const initialState: GraphState = {
+export interface State {
+  currentGraphId: string;
+  graphs: EntityState<Graph>;
+  entities: EntityState<Entity>;
+}
+
+export const graphAdapter = createEntityAdapter<Graph>();
+export const entityAdapter = createEntityAdapter<Entity>();
+
+const initialState: State = {
   currentGraphId: "",
-  entities: {}
+  graphs: graphAdapter.getInitialState(),
+  entities: entityAdapter.getInitialState()
 }
 
-export const graphReducer = createReducer<GraphState>(
+export const graphReducer = createReducer<State>(
   initialState,
+
   /*on(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
     return {
       ...state,
