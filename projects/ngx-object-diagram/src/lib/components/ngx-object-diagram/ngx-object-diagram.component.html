@@ -8,6 +8,8 @@
         [entity]="entity"
         [title]="entity.values[displayName] + ' : ' + entity.values[typeNameProp]"
         [trackFields]="trackFields"
+        (executeAction)="onAction()"
+        (addAssoc)="onAddAssoc()"
       ></g>
 
       <g *ngFor="let assocObj of trackAssocs(entity.values); let ai = index">
@@ -19,6 +21,8 @@
           [entity]="entity"
           [title]="assocObj[displayName] + ' : ' + assocObj[typeNameProp]"
           [trackFields]="trackFields"
+          (executeAction)="onAction()"
+          (addAssoc)="onAddAssoc()"
         ></g>
         <g ngx-object-diagram-line [elem1]="objComp" [elem2]="assocObjComp"></g>
       </g>

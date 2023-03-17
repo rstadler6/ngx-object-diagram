@@ -78,10 +78,18 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {}
 
-  public onCollapse() {
-    if (this.entity) {
-      this.store.dispatch(collapseEntity({ entity: this.entity }));
-    }
+  @Output()
+  executeAction: EventEmitter<void> = new EventEmitter();
+
+  onAction() {
+    this.executeAction.emit();
+  }
+
+  @Output()
+  addAssoc: EventEmitter<void> = new EventEmitter();
+
+  onAddAssoc() {
+    this.addAssoc.emit();
   }
 
   public ngOnInit() {

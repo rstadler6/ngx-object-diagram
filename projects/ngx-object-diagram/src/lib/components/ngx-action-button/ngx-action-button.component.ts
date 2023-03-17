@@ -4,10 +4,10 @@ import { AppState } from "../../state/app.state";
 
 @Component({
   selector: '[ngx-action-button]',
-  templateUrl: './ngx-collapse-button.component.html',
-  styleUrls: ['./ngx-collapse-button.component.scss']
+  templateUrl: './ngx-action-button.component.html',
+  styleUrls: ['./ngx-action-button.component.scss']
 })
-export class NgxCollapseButtonComponent {
+export class NgxActionButtonComponent {
   @Input()
   public x = 0;
 
@@ -30,7 +30,6 @@ export class NgxCollapseButtonComponent {
 
   @HostListener("click")
   onClick() {
-    this.collapse.emit();
     this.execute.emit();
   }
 }

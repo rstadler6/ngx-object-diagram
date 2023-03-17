@@ -1,5 +1,5 @@
 <svg>
-  <g ngx-object-diagram-entity-header (collapse)="onCollapse()" [x]="x" [y]="y" [text]="title + ''"></g>
+  <g ngx-object-diagram-entity-header (action)="onAction()" [x]="x" [y]="y" [text]="title + ''"></g>
 
   <ng-container *ngIf="entity && !entity.collapsed">
     <g *ngFor="let field of trackFields(entity.values); let fi = index">
@@ -22,16 +22,11 @@
       </text>
       <g *ngIf="field.isAssoc"
         ngx-add-assoc-button
+        (addAssoc)="onAddAssoc()"
         [x]="x + 200"
         [y]="y + 23 + fi * 40"
       ></g>
     </g>
-    <g
-        ngx-reload-button
-        [height]=40
-        [width]=225
-        [x]="x"
-        [y]="y + 25 + trackFields(entity.values).length * 40"
-    />
+
   </ng-container>
 </svg>
