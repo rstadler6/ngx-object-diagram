@@ -77,9 +77,23 @@ export class NgxObjectDiagramEntityComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  public onCollapse() {
+  @Output()
+  executeAction: EventEmitter<void> = new EventEmitter();
+
+  onAction() {
+    this.executeAction.emit();
+  }
+
+  @Output()
+  addAssoc: EventEmitter<void> = new EventEmitter();
+
+  onAddAssoc() {
+    this.addAssoc.emit();
+  }
+
+  public ngOnInit() {
     if (this.entity) {
-      this.store.dispatch(updateEntity({ update: { id: this.entity.guid, changes: { collapsed: !this.entity.collapsed } } }));
+      this.store.select(selectEntity(this.entity?.guid)).subscribe(entity => this.entity = entity);
     }
   }
 }

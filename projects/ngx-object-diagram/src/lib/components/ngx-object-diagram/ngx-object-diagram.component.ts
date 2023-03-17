@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 import { select, Store } from "@ngrx/store";
 import { selectCurrentEntities, selectCurrentGraphId } from "../../state/graph.selectors";
@@ -59,6 +59,20 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   public graphId = "";
 
   constructor(private store: Store<State>) {
+  }
+
+  @Output()
+  executeAction: EventEmitter<void> = new EventEmitter();
+
+  onAction() {
+    this.executeAction.emit();
+  }
+
+  @Output()
+  addAssoc: EventEmitter<void> = new EventEmitter();
+
+  onAddAssoc() {
+    this.addAssoc.emit();
   }
 
   ngOnChanges(): void {

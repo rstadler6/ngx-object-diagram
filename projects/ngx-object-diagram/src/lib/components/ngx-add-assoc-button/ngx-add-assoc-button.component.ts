@@ -1,5 +1,4 @@
 import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
-import * as GraphActions from "../../state/graph.actions";
 
 @Component({
   selector: '[ngx-add-assoc-button]',

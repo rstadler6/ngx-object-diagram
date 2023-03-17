@@ -16,9 +16,9 @@ export class NgxObjectDiagramEntityHeaderComponent {
   public y: number = 0;
 
   @Output()
-  collapse: EventEmitter<void> = new EventEmitter();
+  executeAction: EventEmitter<void> = new EventEmitter();
 
-  onCollapse() {
-    this.collapse.emit();
+  onAction() {
+    this.executeAction.emit();
   }
 }
