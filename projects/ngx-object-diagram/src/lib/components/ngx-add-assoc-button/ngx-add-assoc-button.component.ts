@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import * as GraphActions from "../../state/graph.actions";
 
 @Component({
   selector: '[ngx-add-assoc-button]',
@@ -16,5 +17,10 @@ export class NgxAddAssocButtonComponent {
   public displayText = "+";
 
   @Output()
-  collapse: EventEmitter<void> = new EventEmitter();
+  addAssoc: EventEmitter<void> = new EventEmitter();
+
+  @HostListener("click")
+  onClick() {
+    this.addAssoc.emit();
+  }
 }
