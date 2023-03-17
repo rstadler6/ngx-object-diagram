@@ -4,7 +4,7 @@ import { NgxObjectDiagramComponent } from "./components/ngx-object-diagram/ngx-o
 import { NgxObjectDiagramEntityComponent } from "./components/ngx-object-diagram-entity/ngx-object-diagram-entity.component";
 import { NgxObjectDiagramEntityHeaderComponent } from "./components/ngx-object-diagram-entity-header/ngx-object-diagram-entity-header.component";
 import { NgxObjectDiagramLineComponent } from "./components/ngx-object-diagram-line/ngx-object-diagram-line.component";
-import { NgxCollapseButtonComponent } from './components/ngx-collapse-button/ngx-collapse-button.component';
+import { NgxCollapseButtonComponent } from './components/ngx-action-button/ngx-collapse-button.component';
 import { StoreModule } from "@ngrx/store";
 import { graphReducer } from "./state/graph.reducer";
 import { NgxReloadButtonComponent } from './components/ngx-reload-button/ngx-reload-button.component';
