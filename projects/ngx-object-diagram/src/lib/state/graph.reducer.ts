@@ -35,6 +35,8 @@ export const graphReducer = createReducer(
     }
   }),
   on(GraphActions.addGraph, (state, { graph }): State => {
+    //console.log(JSON.stringify(graph));
+    //console.log(JSON.stringify(state));
     return {
       ...state,
       graphs: graphAdapter.addOne(graph, state.graphs)

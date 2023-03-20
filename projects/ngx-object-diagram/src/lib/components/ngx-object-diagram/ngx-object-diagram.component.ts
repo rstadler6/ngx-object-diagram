@@ -3,9 +3,9 @@ import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-enti
 import { select, Store } from "@ngrx/store";
 import { selectCurrentEntities, selectCurrentGraphId } from "../../state/graph.selectors";
 import { Entity } from "../../model/entity";
-import { skip } from "rxjs";
+import { skip, tap } from "rxjs";
 import { State } from "../../state/graph.reducer";
-import { addEntities, addGraph } from "../../state/graph.actions";
+import { addEntities, addGraph, setCurrentGraphId } from "../../state/graph.actions";
 
 @Component({
   selector: "ngx-object-diagram",
@@ -55,24 +55,29 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
 
   public entities: Entity[] = [];
 
-  private graphId = "";
+  @Input()
+  public graphId = "";
 
   constructor(private store: Store<State>) {
   }
 
   ngOnChanges(): void {
-    this.store.dispatch(addEntities({ objs: this.objs, graphId: this.graphId }));
+    //this.store.dispatch(addEntities({ objs: this.objs, graphId: this.graphId }));
   }
 
   ngOnInit(): void {
     this.store.pipe(select(selectCurrentEntities), skip(0)).subscribe(
-      entities => this.entities = entities
+      entities => this.entities = entities  // console.log("test " + JSON.stringify(entities))
     );
-    this.store.select(selectCurrentGraphId).subscribe(
+    /*this.store.select(selectCurrentGraphId).subscribe(
       id => this.graphId = id
-    );
+    );*/
 
-    this.store.dispatch(addGraph({ graph: { id: this.graphId } }));
-    this.store.dispatch(addEntities({ objs: this.objs, graphId: this.graphId }));
+    if (this.graphId) {
+      console.log("graphId: " + this.graphId);
+      this.store.dispatch(setCurrentGraphId({ graphId: this.graphId }));
+      this.store.dispatch(addGraph({ graph: { id: this.graphId } }));
+      this.store.dispatch(addEntities({ objs: this.objs, graphId: this.graphId }));
+    }
   }
 }

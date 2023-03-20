@@ -7,13 +7,13 @@ export const selectGraphFeatureState = createFeatureSelector<State>((() => {
   return 'graph';
 })());
 
-export const selectCurrentGraphId = createSelector(
+/*export const selectCurrentGraphId = createSelector(
   selectRouteParams,
   ({ graphId }) => {
     console.log("graphId: " + graphId);
     return graphId;
   }
-)
+)*/
 
 const {
   selectIds,
@@ -29,6 +29,13 @@ export const selectGraphEntities = selectEntities;
 export const selectAllGraphs = selectAll;
 
 export const selectGraphCount = selectTotal;
+
+export const selectCurrentGraphId = createSelector(
+  selectGraphFeatureState,
+  (state) => {
+    return state.currentGraphId;
+  }
+)
 
 export const selectCurrentEntities = createSelector(
   selectGraphFeatureState,
