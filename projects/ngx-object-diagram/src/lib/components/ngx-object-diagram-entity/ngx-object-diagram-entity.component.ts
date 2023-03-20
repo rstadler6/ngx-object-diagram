@@ -93,7 +93,7 @@ export class NgxObjectDiagramEntityComponent {
 
   public ngOnInit() {
     if (this.entity) {
-      this.store.select(selectEntity(this.entity?.guid)).subscribe(entity => this.entity = entity);
+      //this.store.select(selectEntity(this.entity?.guid)).subscribe(entity => this.entity = entity);
     }
   }
 }
