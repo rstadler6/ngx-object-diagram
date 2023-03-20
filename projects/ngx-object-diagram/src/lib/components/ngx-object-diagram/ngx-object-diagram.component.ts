@@ -1,11 +1,11 @@
 import { Component, HostListener, Input, OnChanges, OnInit } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 import { select, Store } from "@ngrx/store";
-import { AppState } from "../../state/app.state";
-import { selectCurrentGraphId, selectEntities } from "../../state/graph.selectors";
+import { selectCurrentEntities, selectCurrentGraphId } from "../../state/graph.selectors";
 import { Entity } from "../../model/entity";
 import { skip } from "rxjs";
-import { setEntities } from "../../state/entity.actions";
+import { State } from "../../state/graph.reducer";
+import { addEntities, addGraph } from "../../state/graph.actions";
 
 @Component({
   selector: "ngx-object-diagram",
@@ -57,21 +57,22 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
 
   private graphId = "";
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<State>) {
   }
 
   ngOnChanges(): void {
-    this.store.dispatch(setEntities({ objs: this.objs }));
+    this.store.dispatch(addEntities({ objs: this.objs, graphId: this.graphId }));
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(selectEntities), skip(0)).subscribe(
+    this.store.pipe(select(selectCurrentEntities), skip(0)).subscribe(
       entities => this.entities = entities
     );
     this.store.select(selectCurrentGraphId).subscribe(
       id => this.graphId = id
     );
 
-    this.store.dispatch(setEntities({ objs: this.objs }));
+    this.store.dispatch(addGraph({ graph: { id: this.graphId } }));
+    this.store.dispatch(addEntities({ objs: this.objs, graphId: this.graphId }));
   }
 }

@@ -1,5 +1,5 @@
-import { GraphState } from "./graph.reducer";
+import { State } from "./graph.reducer";
 
 export interface AppState {
-  graphState: GraphState;
+  graphState: State;
 }

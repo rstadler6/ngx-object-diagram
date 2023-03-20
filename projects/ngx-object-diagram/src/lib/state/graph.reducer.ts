@@ -3,12 +3,10 @@ import * as GraphActions from "./graph.actions"
 import { Entity } from "../model/entity";
 import { immerOn } from "ngrx-immer/store";
 import { navigated } from "./router.actions";
-import { GraphEntityState } from "./entity.reducer";
 import { createEntityAdapter, EntityState } from "@ngrx/entity";
 
 export interface Graph {
   id: string;
-  entityIds: string[];
 }
 
 export interface State {
@@ -18,7 +16,9 @@ export interface State {
 }
 
 export const graphAdapter = createEntityAdapter<Graph>();
-export const entityAdapter = createEntityAdapter<Entity>();
+export const entityAdapter = createEntityAdapter<Entity>({
+  selectId: entity => entity.guid
+});
 
 const initialState: State = {
   currentGraphId: "",
@@ -26,29 +26,37 @@ const initialState: State = {
   entities: entityAdapter.getInitialState()
 }
 
-export const graphReducer = createReducer<State>(
+export const graphReducer = createReducer(
   initialState,
-
-  /*on(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
+  on(GraphActions.setCurrentGraphId, (state, { graphId }): State => {
     return {
       ...state,
       currentGraphId: graphId
     }
   }),
-  on(GraphActions.setEntities, (state, { objs, graphId }): GraphState => {
-    console.log("setEntities graphId: " + graphId);
+  on(GraphActions.addGraph, (state, { graph }): State => {
     return {
       ...state,
-      graphs: {...state.graphs, [graphId]: objs.map(obj => {
-        return { guid: obj['guid'] as string, values: obj, collapsed: false }
-      })}
+      graphs: graphAdapter.addOne(graph, state.graphs)
     }
   }),
-  immerOn(GraphActions.collapseEntity, (state, { entity }) => {
-    //entity.collapsed = true;
-    // TODO: make better
-    // graphId instead of state.currentGraphId?
-    // TODO: fix
-    state.graphs[state.currentGraphId]!.find(e => e.guid == entity.guid)!.collapsed = !entity.collapsed;
-  })*/
+  on(GraphActions.addEntities, (state, { objs, graphId }): State => {
+    console.log(JSON.stringify(state));
+    return {
+      ...state,
+      entities: entityAdapter.addMany(objs.map(obj => { return { guid: obj['guid'] as string, values: obj, collapsed: false, graphId: graphId } }), state.entities)
+    }
+  }),
+  on(GraphActions.addEntity, (state, { entity }): State => {
+    return {
+      ...state,
+      entities: entityAdapter.addOne(entity, state.entities)
+    }
+  }),
+  on(GraphActions.updateEntity, (state, { update }): State => {
+    return {
+      ...state,
+      entities: entityAdapter.updateOne(update, state.entities)
+    }
+  })
 )

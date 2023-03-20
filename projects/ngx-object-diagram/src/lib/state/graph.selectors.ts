@@ -1,8 +1,9 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { GraphState } from "./graph.reducer";
+import { entityAdapter, graphAdapter, State } from "./graph.reducer";
 import { selectRouteParams } from "./router.selectors";
+import { selectAllEntities } from "./entity.selectors";
 
-export const selectGraphFeatureState = createFeatureSelector<GraphState>((() => {
+export const selectGraphFeatureState = createFeatureSelector<State>((() => {
   return 'graph';
 })());
 
@@ -14,20 +15,25 @@ export const selectCurrentGraphId = createSelector(
   }
 )
 
-export const selectEntities = createSelector(
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal
+} = graphAdapter.getSelectors();
+
+export const selectGraphIds = selectIds;
+
+export const selectGraphEntities = selectEntities;
+
+export const selectAllGraphs = selectAll;
+
+export const selectGraphCount = selectTotal;
+
+export const selectCurrentEntities = createSelector(
   selectGraphFeatureState,
   selectCurrentGraphId,
   (state, graphId) => {
-    return state?.graphs?.[graphId];
+    return entityAdapter.getSelectors().selectAll(state.entities).filter(e => e.graphId == graphId);
   }
-);
-
-export const selectEntity = (entityGuid: string) =>
-  createSelector(selectEntities,
-    entities => entities?.find(e => e.guid == entityGuid)
-  );
-
-export const selectCollapsed = (entityGuid: string) =>
-  createSelector(selectEntity(entityGuid),
-    entity => entity?.collapsed
-  );
+)

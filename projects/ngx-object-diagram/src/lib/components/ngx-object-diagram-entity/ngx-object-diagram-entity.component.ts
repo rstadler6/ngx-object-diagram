@@ -10,15 +10,14 @@ import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-enti
 import { Store } from "@ngrx/store";
 import { Entity } from "../../model/entity";
 import { AppState } from "../../state/app.state";
-import { collapseEntity } from "../../state/graph.actions";
-import { selectEntity } from "../../state/graph.selectors";
+import { updateEntity } from "../../state/graph.actions";
 
 @Component({
   selector: "[ngx-object-diagram-entity]",
   templateUrl: "./ngx-object-diagram-entity.component.html",
   styleUrls: ["./ngx-object-diagram-entity.component.scss"],
 })
-export class NgxObjectDiagramEntityComponent implements OnInit {
+export class NgxObjectDiagramEntityComponent {
   @Input()
   public x = 300;
 
@@ -80,13 +79,7 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
 
   public onCollapse() {
     if (this.entity) {
-      //this.store.dispatch(collapseEntity({ entity: this.entity }));
-    }
-  }
-
-  public ngOnInit() {
-    if (this.entity) {
-      this.store.select(selectEntity(this.entity?.guid)).subscribe(entity => this.entity = entity);
+      this.store.dispatch(updateEntity({ update: { id: this.entity.guid, changes: { collapsed: !this.entity.collapsed } } }));
     }
   }
 }
