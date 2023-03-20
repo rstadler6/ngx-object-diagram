@@ -44,6 +44,11 @@ export class NgxObjectDiagramEntityComponent {
   @Input()
   public entity: Entity | undefined;
 
+  @Output()
+  public fieldsSet: EventEmitter<{ key: string, fields: NgxObjectDiagramEntityField[] }> = new EventEmitter<{ key: string, fields: NgxObjectDiagramEntityField[] }>();
+
+  public fields: NgxObjectDiagramEntityField[] = [];
+
   public isDragging = false;
 
   @HostBinding("style.cursor")
@@ -94,6 +99,23 @@ export class NgxObjectDiagramEntityComponent {
   public ngOnInit() {
     if (this.entity) {
       //this.store.select(selectEntity(this.entity?.guid)).subscribe(entity => this.entity = entity);
+      this.setFields(this.entity);
     }
+  }
+
+  private setFields(entity: Entity) {
+    let i = 0;
+    const fields: NgxObjectDiagramEntityField[] = []
+
+    entity.values.forEach((value, key) => {
+      fields.push({
+          fieldKey: key, fieldName: key, assocValues: (value instanceof Array<Record<string, unknown>> ? value : undefined),
+          x: this.x, y: this.y + 25 + i * 40
+      });
+      i++;
+    });
+
+    this.fields = fields;
+    this.fieldsSet.emit({ key: entity.guid, fields: fields });
   }
 }
