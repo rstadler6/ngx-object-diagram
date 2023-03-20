@@ -16,7 +16,7 @@ const initialState: GraphState = {
 
 export const graphReducer = createReducer<GraphState>(
   initialState,
-  on(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
+  /*on(GraphActions.setCurrentGraphId, (state, { graphId }): GraphState =>{
     return {
       ...state,
       currentGraphId: graphId
@@ -37,5 +37,5 @@ export const graphReducer = createReducer<GraphState>(
     // graphId instead of state.currentGraphId?
     // TODO: fix
     state.graphs[state.currentGraphId]!.find(e => e.guid == entity.guid)!.collapsed = !entity.collapsed;
-  })
+  })*/
 )

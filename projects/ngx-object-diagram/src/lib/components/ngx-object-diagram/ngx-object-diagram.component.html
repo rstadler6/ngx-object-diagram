@@ -2,29 +2,15 @@
   <g>
     <g *ngFor="let entity of entities; let ei = index">
       <g
-        #objComp
         ngx-object-diagram-entity
         [x]="50 + ei * 250"
         [entity]="entity"
-        [title]="entity.values[displayName] + ' : ' + entity.values[typeNameProp]"
-        [trackFields]="trackFields"
+        [title]="entity.values.get(displayName) + ' : ' + entity.values.get(typeNameProp)"
         (executeAction)="onAction()"
         (addAssoc)="onAddAssoc()"
-      ></g>
-
-      <g *ngFor="let assocObj of trackAssocs(entity.values); let ai = index">
-        <g
-          #assocObjComp
-          ngx-object-diagram-entity
-          [x]="50 + (ei + 1) * 350"
-          [y]="150 + ai * 200"
-          [entity]="entity"
-          [title]="assocObj[displayName] + ' : ' + assocObj[typeNameProp]"
-          [trackFields]="trackFields"
-          (executeAction)="onAction()"
-          (addAssoc)="onAddAssoc()"
-        ></g>
-        <g ngx-object-diagram-line [elem1]="objComp" [elem2]="assocObjComp"></g>
+        (fieldsSet)="onFieldsSet($event)"
+      >
+        <g ngx-object-diagram-line></g>
       </g>
     </g>
   </g>

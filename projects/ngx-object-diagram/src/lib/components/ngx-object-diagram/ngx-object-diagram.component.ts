@@ -19,7 +19,7 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   @Input()
   public displayName: string = "displayName";
 
-  @Input()
+ /* @Input()
   public trackFields: (
     obj: Record<string, unknown>
   ) => NgxObjectDiagramEntityField[] = (obj) => {
@@ -43,7 +43,7 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
       .flatMap((key) => {
         return obj[key] as Record<string, unknown>[];
       });
-  };
+  };*/
 
   @Input()
   public objs: Record<string, unknown>[] = [];
@@ -69,6 +69,11 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
 
   @Output()
   addAssoc: EventEmitter<void> = new EventEmitter();
+  fields: Map<string, NgxObjectDiagramEntityField[]> = new Map()
+
+  public onFieldsSet(value: { key: string, fields: NgxObjectDiagramEntityField[] }) {
+    this.fields.set(value.key, value.fields);
+  }
 
   onAddAssoc() {
     this.addAssoc.emit();
@@ -79,13 +84,8 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(selectEntities), skip(0)).subscribe(
-      entities => this.entities = entities
-    );
-    this.store.select(selectCurrentGraphId).subscribe(
-      id => this.graphId = id
-    );
-
-    this.store.dispatch(setEntities({ objs: this.objs, graphId: this.graphId }));
+    this.entities = this.objs.map(obj => {
+      return { guid: obj['guid'] as string, values: new Map(Object.entries(obj)), collapsed: false }
+    });
   }
 }

@@ -1,5 +1,5 @@
 export interface Entity {
   guid: string;
-  values: Record<string, unknown>
+  values: Map<string, unknown>
   collapsed: boolean;
 }

@@ -14,20 +14,27 @@ export class AssocUsageComponent {
       titel: "Testinhalt",
       beginn: "01.01.2023",
       dokumente: [
-        {
-          guid: "456",
-          titel: "Testgugus",
-          displayName: "dok 1",
-          typeName: "Dokument",
-          dokumentDatum: "01.02.2002",
-        },
-        {
-          guid: "789",
-          titel: "Test 123",
-          displayName: "dok 2",
-          typeName: "Dokument",
-          dokumentDatum: "01.02.2005",
-        },
+        { guid: "456", field: "geschaeft" }, { guid: "456", field: "geschaeft" }
+      ],
+    },
+    {
+      guid: "456",
+      titel: "Testgugus",
+      displayName: "dok 1",
+      typeName: "Dokument",
+      dokumentDatum: "01.02.2002",
+      geschaeft: [
+        { guid: "123", field: "dokumente" }
+      ],
+    },
+    {
+      guid: "789",
+      titel: "Test 123",
+      displayName: "dok 2",
+      typeName: "Dokument",
+      dokumentDatum: "01.02.2005",
+      geschaeft: [
+        { guid: "123", field: "dokumente" }
       ],
     },
   ];
