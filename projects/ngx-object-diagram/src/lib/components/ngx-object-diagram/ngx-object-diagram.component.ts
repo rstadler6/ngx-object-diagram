@@ -6,6 +6,7 @@ import { selectCurrentGraphId, selectEntities } from "../../state/graph.selector
 import { Entity } from "../../model/entity";
 import { setCurrentGraphId, setEntities } from "../../state/graph.actions";
 import { skip } from "rxjs";
+import { NgxObjectDiagramAssoc } from "../../model/ngx-object-diagram-assoc";
 
 @Component({
   selector: "ngx-object-diagram",
@@ -47,6 +48,9 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
 
   @Input()
   public objs: Record<string, unknown>[] = [];
+
+  @Input()
+  public assocs: NgxObjectDiagramAssoc[] = [];
 
   @HostListener("mouseenter")
   public onMouseEnter() {
