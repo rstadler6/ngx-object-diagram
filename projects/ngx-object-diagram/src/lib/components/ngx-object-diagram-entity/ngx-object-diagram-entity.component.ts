@@ -9,9 +9,6 @@ import {
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 import { Store } from "@ngrx/store";
 import { Entity } from "../../model/entity";
-import { AppState } from "../../state/app.state";
-import { collapseEntity } from "../../state/graph.actions";
-import { selectEntity } from "../../state/graph.selectors";
 
 @Component({
   selector: "[ngx-object-diagram-entity]",
@@ -80,8 +77,6 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
     this.y = event.offsetY;
     this.onDragged.emit();
   }
-
-  constructor(private store: Store<AppState>) {}
 
   @Output()
   executeAction: EventEmitter<void> = new EventEmitter();

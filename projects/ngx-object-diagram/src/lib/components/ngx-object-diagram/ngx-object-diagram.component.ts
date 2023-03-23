@@ -1,11 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
-import { select, Store } from "@ngrx/store";
-import { AppState } from "../../state/app.state";
-import { selectCurrentGraphId, selectEntities } from "../../state/graph.selectors";
 import { Entity } from "../../model/entity";
-import { setCurrentGraphId, setEntities } from "../../state/graph.actions";
-import { skip } from "rxjs";
 import { NgxObjectDiagramAssoc } from "../../model/ngx-object-diagram-assoc";
 
 @Component({
@@ -52,17 +47,9 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   @Input()
   public assocs: NgxObjectDiagramAssoc[] = [];
 
-  @HostListener("mouseenter")
-  public onMouseEnter() {
-    //this.store.dispatch(setCurrentGraphId({ graphId: this.graphId }));
-  }
-
   public entities: Entity[] = [];
 
   private graphId = "";
-
-  constructor(private store: Store<AppState>) {
-  }
 
   @Output()
   executeAction: EventEmitter<void> = new EventEmitter();
@@ -84,7 +71,6 @@ export class NgxObjectDiagramComponent implements OnInit,OnChanges {
   }
 
   ngOnChanges(): void {
-    this.store.dispatch(setEntities({ objs: this.objs, graphId: this.graphId }));
   }
 
   ngOnInit(): void {
