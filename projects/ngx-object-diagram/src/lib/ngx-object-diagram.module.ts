@@ -5,12 +5,7 @@ import { NgxObjectDiagramEntityComponent } from "./components/ngx-object-diagram
 import { NgxObjectDiagramEntityHeaderComponent } from "./components/ngx-object-diagram-entity-header/ngx-object-diagram-entity-header.component";
 import { NgxObjectDiagramLineComponent } from "./components/ngx-object-diagram-line/ngx-object-diagram-line.component";
 import { NgxActionButtonComponent } from './components/ngx-action-button/ngx-action-button.component';
-import { StoreModule } from "@ngrx/store";
-import { graphReducer } from "./state/graph.reducer";
-import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ngx-add-assoc-button.component';
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { RouterModule } from "@angular/router";
-import { routerReducer, StoreRouterConnectingModule } from "@ngrx/router-store";
+import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ngx-add-assoc-button.component'
 
 @NgModule({
   declarations: [
@@ -24,12 +19,6 @@ import { routerReducer, StoreRouterConnectingModule } from "@ngrx/router-store";
   ],
   imports: [
     CommonModule,
-    StoreModule.forRoot({ graph: graphReducer, router: routerReducer }),
-    RouterModule.forRoot([
-      //{ path: ':graphId', component: NgxObjectDiagramComponent }
-    ]),
-    StoreRouterConnectingModule.forRoot(),
-    StoreDevtoolsModule.instrument({})
   ],
   exports: [NgxObjectDiagramComponent],
 })
