@@ -7,8 +7,7 @@ import {
   Output
 } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
-import { Store } from "@ngrx/store";
-import { Entity } from "../../model/entity";
+import { NgxObjectDiagramAssoc } from "../../model/ngx-object-diagram-assoc";
 
 @Component({
   selector: "[ngx-object-diagram-entity]",
@@ -40,12 +39,7 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
   ) => NgxObjectDiagramEntityField[] = () => [];
 
   @Input()
-  public entity: Entity | undefined;
-
-  @Output()
-  public fieldsSet: EventEmitter<{ key: string, fields: NgxObjectDiagramEntityField[] }> = new EventEmitter<{ key: string, fields: NgxObjectDiagramEntityField[] }>();
-
-  public fields: NgxObjectDiagramEntityField[] = [];
+  public fields: Record<string, unknown>;
 
   public isDragging = false;
 
@@ -92,25 +86,14 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
     this.addAssoc.emit();
   }
 
-  public ngOnInit() {
-    if (this.entity) {
-      this.setFields(this.entity);
+  trackAssoc(assoc: NgxObjectDiagramAssoc) {
+    if (assoc.guidA === this.fields['guid']) {
+      return this.fields[assoc.fieldA] == undefined ? 1 : 0;   // return header : field
+    } else if (assoc.guidB  === this.fields['guid']) {
+      return this.fields[assoc.fieldB] == undefined ? 1 : 0;   // return header : field
     }
   }
 
-  private setFields(entity: Entity) {
-    let i = 0;
-    const fields: NgxObjectDiagramEntityField[] = []
-
-    entity.values.forEach((value, key) => {
-      fields.push({
-          fieldKey: key, fieldName: key, assocValues: (value instanceof Array<Record<string, unknown>> ? value : undefined),
-          x: this.x, y: this.y + 25 + i * 40
-      });
-      i++;
-    });
-
-    this.fields = fields;
-    this.fieldsSet.emit({ key: entity.guid, fields: fields });
+  public ngOnInit() {
   }
 }

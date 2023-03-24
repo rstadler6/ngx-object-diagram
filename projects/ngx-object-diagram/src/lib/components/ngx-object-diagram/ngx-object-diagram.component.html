@@ -4,14 +4,14 @@
       <g
         ngx-object-diagram-entity
         [x]="50 + ei * 250"
-        [entity]="entity"
-        [title]="entity.values.get(displayName) + ' : ' + entity.values.get(typeNameProp)"
+        [title]="entity['displayName'] + ' : ' + entity['typeNameProp']"
+        [fields]="entity"
         (executeAction)="onAction()"
         (addAssoc)="onAddAssoc()"
-        (fieldsSet)="onFieldsSet($event)"
-      >
-        <g ngx-object-diagram-line></g>
-      </g>
+      ></g>
+    </g>
+    <g *ngFor="let assoc of assocs">
+      <g ngx-object-diagram-line></g>
     </g>
   </g>
 </svg>
