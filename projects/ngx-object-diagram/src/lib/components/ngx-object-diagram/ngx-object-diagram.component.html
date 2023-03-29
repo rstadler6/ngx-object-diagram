@@ -2,16 +2,22 @@
   <g>
     <g *ngFor="let entity of entities; let ei = index">
       <g
+        #entity
         ngx-object-diagram-entity
         [x]="50 + ei * 250"
-        [title]="entity['displayName'] + ' : ' + entity['typeNameProp']"
-        [fields]="entity"
+        [title]="entity[this.displayNameProp] + ' : ' + entity[this.typeNameProp]"
+        [fields]="trackFields(entity)"
+        [guid]="entity[this.guidProp]"
         (executeAction)="onAction()"
         (addAssoc)="onAddAssoc()"
       ></g>
     </g>
     <g *ngFor="let assoc of assocs">
-      <g ngx-object-diagram-line></g>
+      <g
+        #line
+        ngx-object-diagram-line
+        [assoc]="assoc"
+      ></g>
     </g>
   </g>
 </svg>

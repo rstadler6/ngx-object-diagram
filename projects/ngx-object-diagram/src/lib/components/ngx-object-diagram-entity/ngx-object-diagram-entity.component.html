@@ -5,21 +5,21 @@
     <rect
       height="40"
       width="225"
-      [attr.y]="y + fi * 40"
       [attr.x]="x"
+      [attr.y]="y + fi * 40"
       fill="#ffffff"
     />
     <text
       xml:space="preserve"
       text-anchor="start"
       font-size="16"
-      [attr.x]="field.x"
-      [attr.y]="field.y"
+      [attr.x]="x"
+      [attr.y]="y + + 25 + fi * 40"
       stroke-width="0"
     >
-      {{ field.fieldName }} = {{ !field.assocValues ? entity?.values?.get(field.fieldKey) : "[]" }}
+      {{ field.fieldName }} = {{ !field.isAssoc ? field.value : "[]" }}
       </text>
-    <g *ngIf="field.assocValues && field.assocValues.length === 0"
+    <g *ngIf="field.isAssoc && field.value === []"
        ngx-add-assoc-button
        (addAssoc)="onAddAssoc()"
        [x]="x + 200"

@@ -6,7 +6,6 @@ import { NgxObjectDiagramEntityHeaderComponent } from "./components/ngx-object-d
 import { NgxObjectDiagramLineComponent } from "./components/ngx-object-diagram-line/ngx-object-diagram-line.component";
 import { NgxActionButtonComponent } from './components/ngx-action-button/ngx-action-button.component';
 import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ngx-add-assoc-button.component';
-import { NgxObjectDiagramAssocFieldComponent } from './components/ngx-object-diagram-assoc-field/ngx-object-diagram-assoc-field.component'
 
 @NgModule({
   declarations: [
@@ -16,8 +15,7 @@ import { NgxObjectDiagramAssocFieldComponent } from './components/ngx-object-dia
     NgxObjectDiagramEntityComponent,
     NgxObjectDiagramLineComponent,
     NgxActionButtonComponent,
-    NgxAddAssocButtonComponent,
-    NgxObjectDiagramAssocFieldComponent,
+    NgxAddAssocButtonComponent
   ],
   imports: [
     CommonModule,
