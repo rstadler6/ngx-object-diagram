@@ -17,7 +17,7 @@ export class NgxObjectDiagramEntityHeaderComponent {
   public y = 0;
 
   @Output()
-  public executeAction: EventEmitter<void> = new EventEmitter();
+  public executeAction = new EventEmitter<void>();
 
   public onAction() {
     this.executeAction.emit();

@@ -52,10 +52,10 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
   public dragged = new EventEmitter<{ guid: unknown, x: number, y: number }>();
 
   @Output()
-  public executeAction = new EventEmitter();
+  public executeAction = new EventEmitter<{ guid: unknown}>();
 
   @Output()
-  public addAssoc = new EventEmitter();
+  public addAssoc = new EventEmitter<{ guid: unknown, assocKey: string}>();
 
   public isDragging = false;
 
@@ -93,12 +93,11 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
   }
 
   public onAction() {
-    this.executeAction.emit();
+    this.executeAction.emit({guid: this.guid });
   }
-  public onAddAssoc() {
-    this.addAssoc.emit();
+  public onAddAssoc(field: NgxObjectDiagramEntityField) {
+    this.addAssoc.emit({ guid: this.guid, assocKey: field.fieldKey });
   }
-
   private _updateAssocCoords() {
     this.fields.forEach((field, index) => {
       if (field.isAssoc) {

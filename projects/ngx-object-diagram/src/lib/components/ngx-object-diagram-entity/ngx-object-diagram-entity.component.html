@@ -21,7 +21,7 @@
       </text>
     <g *ngIf="field.isAssoc"
        ngx-add-assoc-button
-       (addAssoc)="onAddAssoc()"
+       (addAssoc)="onAddAssoc(field)"
        [x]="x + 200"
        [y]="y + 23 + fi * 40"
     ></g>

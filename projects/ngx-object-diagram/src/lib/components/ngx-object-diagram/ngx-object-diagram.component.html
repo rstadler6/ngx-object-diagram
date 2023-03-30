@@ -8,8 +8,8 @@
         [title]="entity[this.displayNameProp] + ' : ' + entity[this.typeNameProp]"
         [fields]="trackFields(entity)"
         [guid]="entity[this.guidProp]"
-        (executeAction)="onAction()"
-        (addAssoc)="onAddAssoc()"
+        (executeAction)="onAction($event)"
+        (addAssoc)="onAddAssoc($event)"
         (dragged)="onEntityDragged($event)"
       ></g>
     </g>

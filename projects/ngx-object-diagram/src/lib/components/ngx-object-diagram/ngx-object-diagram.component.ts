@@ -57,10 +57,10 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
   public assocs: NgxObjectDiagramAssoc[] = [];
 
   @Output()
-  public executeAction = new EventEmitter<void>();
+  public executeAction = new EventEmitter<{ guid: unknown }>();
 
   @Output()
-  public addAssoc = new EventEmitter<void>();
+  public addAssoc = new EventEmitter<{ guid: unknown, assocKey: string}>();
 
   constructor(private readonly _coordinateService: CoordinatesService) {
   }
@@ -94,11 +94,11 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
     });
   }
 
-  public onAction() {
-    this.executeAction.emit();
+  public onAction(entity: { guid: unknown }) {
+    this.executeAction.emit(entity);
   }
 
-  public onAddAssoc() {
-    this.addAssoc.emit();
+  public onAddAssoc(event: { guid: unknown, assocKey: string}) {
+    this.addAssoc.emit(event);
   }
 }
