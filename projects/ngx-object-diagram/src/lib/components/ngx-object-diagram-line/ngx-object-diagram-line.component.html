@@ -1,7 +1,7 @@
 <svg:line *ngIf="coordsA && coordsB"
   xmlns:svg="http://www.w3.org/2000/svg"
-  [attr.x1]="coordsA.x + 225"
+  [attr.x1]="coordsA.x > coordsB.x ? coordsA.x : coordsA.x + 225"
   [attr.y1]="coordsA.y"
-  [attr.x2]="coordsB.x"
+  [attr.x2]="coordsB.x > coordsA.x ? coordsB.x : coordsB.x + 225"
   [attr.y2]="coordsB.y"
 />
