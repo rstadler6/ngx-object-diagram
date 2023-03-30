@@ -10,6 +10,7 @@
         [guid]="entity[this.guidProp]"
         (executeAction)="onAction()"
         (addAssoc)="onAddAssoc()"
+        (dragged)="onEntityDragged($event)"
       ></g>
     </g>
     <g *ngFor="let assoc of assocs">

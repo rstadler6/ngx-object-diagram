@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 @Component({
   selector: '[ngx-add-assoc-button]',
@@ -14,13 +14,13 @@ export class NgxAddAssocButtonComponent {
   public y = 0;
 
   @Input()
-  public displayText = "+";
+  public displayText = '+';
 
   @Output()
-  addAssoc: EventEmitter<void> = new EventEmitter();
+  public addAssoc = new EventEmitter<void>();
 
-  @HostListener("click")
-  onClick() {
+  @HostListener('click')
+  public onAddAssocClicked() {
     this.addAssoc.emit();
   }
 }

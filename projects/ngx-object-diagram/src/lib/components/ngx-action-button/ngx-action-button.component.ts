@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 @Component({
   selector: '[ngx-action-button]',
@@ -15,13 +15,13 @@ export class NgxActionButtonComponent {
 
   // TODO: replace with icon
   @Input()
-  public displayText = "-";
+  public displayText = '-';
 
   @Output()
-  execute: EventEmitter<void> = new EventEmitter();
+  public execute = new EventEmitter<void>();
 
-  @HostListener("click")
-  onClick() {
+  @HostListener('click')
+  public executeClicked() {
     this.execute.emit();
   }
 }
