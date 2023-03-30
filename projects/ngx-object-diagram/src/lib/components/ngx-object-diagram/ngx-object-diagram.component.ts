@@ -15,8 +15,7 @@ import { NgxObjectDiagramLineComponent } from "../ngx-object-diagram-line/ngx-ob
 @Component({
   selector: "ngx-object-diagram",
   templateUrl: "ngx-object-diagram.component.html",
-  styleUrls: ["ngx-object-diagram.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ["ngx-object-diagram.component.scss"]
 })
 export class NgxObjectDiagramComponent implements AfterViewInit {
   @ViewChildren('entity')
