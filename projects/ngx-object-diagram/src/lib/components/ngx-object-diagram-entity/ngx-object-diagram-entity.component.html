@@ -19,7 +19,7 @@
     >
       {{ field.fieldName }} = {{ !field.isAssoc ? field.value : "[]" }}
       </text>
-    <g *ngIf="field.isAssoc && field.value === []"
+    <g *ngIf="field.isAssoc"
        ngx-add-assoc-button
        (addAssoc)="onAddAssoc()"
        [x]="x + 200"

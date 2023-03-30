@@ -1,9 +1,10 @@
-import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
 
 @Component({
   selector: '[ngx-add-assoc-button]',
   templateUrl: './ngx-add-assoc-button.component.html',
-  styleUrls: ['./ngx-add-assoc-button.component.scss']
+  styleUrls: ['./ngx-add-assoc-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxAddAssocButtonComponent {
   @Input()

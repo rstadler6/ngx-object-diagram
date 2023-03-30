@@ -1,11 +1,8 @@
 import {
-  AfterViewInit,
+  AfterViewInit, ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  HostListener,
   Input,
-  OnChanges,
-  OnInit,
   Output,
   QueryList,
   ViewChildren
@@ -13,14 +10,13 @@ import {
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
 import { NgxObjectDiagramAssoc } from "../../model/ngx-object-diagram-assoc";
 import { NgxObjectDiagramEntityComponent } from "../ngx-object-diagram-entity/ngx-object-diagram-entity.component";
-import { NgxObjectDiagramCoords } from "../../model/ngx-object-diagram-coords";
-import { Observable } from "rxjs";
 import { NgxObjectDiagramLineComponent } from "../ngx-object-diagram-line/ngx-object-diagram-line.component";
 
 @Component({
   selector: "ngx-object-diagram",
   templateUrl: "ngx-object-diagram.component.html",
   styleUrls: ["ngx-object-diagram.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxObjectDiagramComponent implements AfterViewInit {
   @ViewChildren('entity')

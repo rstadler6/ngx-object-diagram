@@ -3,8 +3,6 @@ import { BehaviorSubject } from "rxjs";
 import { NgxObjectDiagramCoords } from "../../model/ngx-object-diagram-coords";
 import { NgxObjectDiagramAssoc } from "../../model/ngx-object-diagram-assoc";
 
-
-// change detect. onpush?
 @Component({
   selector: "[ngx-object-diagram-line]",
   templateUrl: "./ngx-object-diagram-line.component.html",

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from "@angular/core";
 
 @Component({
   selector: '[ngx-action-button]',
   templateUrl: './ngx-action-button.component.html',
-  styleUrls: ['./ngx-action-button.component.scss']
+  styleUrls: ['./ngx-action-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxActionButtonComponent {
   @Input()

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: "[ngx-object-diagram-entity-header]",
   templateUrl: "./ngx-object-diagram-entity-header.component.html",
   styleUrls: ["./ngx-object-diagram-entity-header.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxObjectDiagramEntityHeaderComponent {
   @Input()

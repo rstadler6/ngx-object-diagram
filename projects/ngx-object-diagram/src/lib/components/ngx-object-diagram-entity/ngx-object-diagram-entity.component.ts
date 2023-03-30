@@ -1,20 +1,22 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   HostBinding,
   HostListener,
-  Input, OnInit,
+  Input,
+  OnInit,
   Output
 } from "@angular/core";
 import { NgxObjectDiagramEntityField } from "../../model/ngx-object-diagram-entity-field";
-import { NgxObjectDiagramAssoc } from "../../model/ngx-object-diagram-assoc";
 import { NgxObjectDiagramCoords } from "../../model/ngx-object-diagram-coords";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: "[ngx-object-diagram-entity]",
   templateUrl: "./ngx-object-diagram-entity.component.html",
   styleUrls: ["./ngx-object-diagram-entity.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxObjectDiagramEntityComponent implements OnInit {
   @Input()
