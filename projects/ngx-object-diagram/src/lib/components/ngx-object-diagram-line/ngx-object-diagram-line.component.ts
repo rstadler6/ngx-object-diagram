@@ -12,7 +12,14 @@ import { CoordinatesService } from "../../services/coordinates.service";
 export class NgxObjectDiagramLineComponent {
   @Input()
   public assoc?: NgxObjectDiagramAssoc;
-  public readonly coords$ = this._coordinateService.coordinates$.pipe(map(coordinates => coordinates.find(c => c.assocLine === this.assoc)));
+  public readonly coords$ = this._coordinateService.coordinates$.pipe(
+    map(coordinates => {
+      return coordinates.find(c =>
+        c.assocLine.fieldA === this.assoc?.fieldA
+        && c.assocLine.guidA == this.assoc?.guidA
+        && c.assocLine.guidB === this.assoc?.guidB
+        && c.assocLine.fieldB === this.assoc.fieldB);
+    }));
 
   constructor(private readonly _coordinateService: CoordinatesService) {
   }

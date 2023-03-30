@@ -9,17 +9,17 @@ export class CoordinatesService {
   private readonly _coordinates = new BehaviorSubject<NgxObjectDiagramAssocCoords[]>([]);
   public readonly coordinates$ = this._coordinates.asObservable();
 
-  public upsertCoordinate(line: NgxObjectDiagramAssoc, xA: number, yA: number, xB: number, yB: number ): void {
+  public upsertCoordinate(line: NgxObjectDiagramAssoc, xA: number, yA: number, xB: number, yB: number, indexA: number, indexB: number): void {
 
     this._coordinates.next([...this._coordinates.getValue(), {
       assocLine: line,
       a: {
         x: xA,
-        y: yA - 20
+        y: (yA + 25) + indexA*40
       },
       b: {
         x: xB,
-        y: yB - 20
+        y: (yB + 25) + indexB*40
       }
     }]);
   }

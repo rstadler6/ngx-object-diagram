@@ -66,15 +66,18 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.assocLines.forEach((line) => {
-      const entityA = this.entityComponents?.find(e => e.guid === line.assoc?.guidA);
-      const entityB = this.entityComponents?.find(e => e.guid === line.assoc?.guidB);
-      if (!entityA || !entityB || !line.assoc) {
-        return;
-      }
-
-      this._coordinateService.upsertCoordinate(line.assoc, entityA.x, entityA.y, entityB.x, entityB.y);
-    });
+    setTimeout(() => {
+      this.assocLines.forEach((line) => {
+        const entityA = this.entityComponents?.find(e => e.guid === line.assoc?.guidA);
+        const entityB = this.entityComponents?.find(e => e.guid === line.assoc?.guidB);
+        if (!entityA || !entityB || !line.assoc) {
+          return;
+        }
+        const indexA = entityA.fields.findIndex(field => field.fieldKey === line.assoc?.fieldA);
+        const indexB = entityA.fields.findIndex(field => field.fieldKey === line.assoc?.fieldB);
+        this._coordinateService.upsertCoordinate(line.assoc, entityA.x, entityA.y, entityB.x, entityB.y, indexA, indexB);
+      });
+    }, 0);
   }
 
   public onEntityDragged(dragData: { guid: unknown, x: number, y: number }) {
