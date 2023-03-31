@@ -1,28 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg">
   <g>
-    <g *ngFor="let obj of objs; let oi = index">
+    <g *ngFor="let entity of entities; let ei = index">
       <g
-        #objComp
+        #entity
         ngx-object-diagram-entity
-        [x]="50 + oi * 250"
-        [obj]="obj"
-        [title]="obj[displayName] + ' : ' + obj[typeNameProp]"
-        [trackFields]="trackFields"
+        [x]="50 + ei * 250"
+        [title]="entity[displayNameProp] + ' : ' + entity[typeNameProp]"
+        [fields]="trackFields(entity)"
+        [guid]="entity[guidProp]"
+        (executeAction)="onAction($event)"
+        (addAssoc)="onAddAssoc($event)"
+        (dragged)="onEntityDragged($event)"
       ></g>
-
-      <g *ngFor="let assocObj of trackAssocs(obj); let ai = index">
-        <g
-          #assocObjComp
-          ngx-object-diagram-entity
-          [x]="50 + (oi + 1) * 350"
-          [y]="150 + ai * 200"
-          [obj]="assocObj"
-          [title]="assocObj[displayName] + ' : ' + assocObj[typeNameProp]"
-          [trackFields]="trackFields"
-        ></g>
-
-        <g ngx-object-diagram-line [elem1]="objComp" [elem2]="assocObjComp"></g>
-      </g>
+    </g>
+    <g *ngFor="let assoc of assocs">
+      <g
+        #line
+        ngx-object-diagram-line
+        [assoc]="assoc"
+      ></g>
     </g>
   </g>
 </svg>

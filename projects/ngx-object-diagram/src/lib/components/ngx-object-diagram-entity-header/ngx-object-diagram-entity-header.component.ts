@@ -1,17 +1,25 @@
-import { Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: "[ngx-object-diagram-entity-header]",
-  templateUrl: "./ngx-object-diagram-entity-header.component.html",
-  styleUrls: ["./ngx-object-diagram-entity-header.component.scss"],
+  selector: '[ngx-object-diagram-entity-header]',
+  templateUrl: './ngx-object-diagram-entity-header.component.html',
+  styleUrls: ['./ngx-object-diagram-entity-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NgxObjectDiagramEntityHeaderComponent {
   @Input()
-  public text: string = "object : Object";
+  public text = 'object : Object';
 
   @Input()
-  public x: number = 0;
+  public x = 0;
 
   @Input()
-  public y: number = 0;
+  public y = 0;
+
+  @Output()
+  public executeAction = new EventEmitter<void>();
+
+  public onAction() {
+    this.executeAction.emit();
+  }
 }
