@@ -1,24 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg">
-  <g>
-    <g *ngFor="let entity of entities; let ei = index">
-      <g
-        #entity
-        ngx-object-diagram-entity
-        [x]="50 + ei * 250"
-        [title]="entity[displayNameProp] + ' : ' + entity[typeNameProp]"
-        [fields]="trackFields(entity)"
-        [guid]="entity[guidProp]"
-        (executeAction)="onAction($event)"
-        (addAssoc)="onAddAssoc($event)"
-        (dragged)="onEntityDragged($event)"
-      ></g>
+    <g>
+        <g *ngFor="let entity of entities; let ei = index">
+            <g
+                #entity
+                ngx-object-diagram-entity
+                [x]="50 + ei * 250"
+                [title]="entity[displayNameProp] + ' : ' + entity[typeNameProp]"
+                [fields]="trackFields(entity)"
+                [guid]="entity[guidProp]"
+                (executeAction)="onAction($event)"
+                (addAssoc)="onAddAssoc($event)"
+                (dragged)="onEntityDragged($event)"
+            ></g>
+        </g>
+        <g *ngFor="let assoc of assocs">
+            <g #line ngx-object-diagram-line [assoc]="assoc"></g>
+        </g>
     </g>
-    <g *ngFor="let assoc of assocs">
-      <g
-        #line
-        ngx-object-diagram-line
-        [assoc]="assoc"
-      ></g>
-    </g>
-  </g>
 </svg>

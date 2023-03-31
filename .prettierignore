@@ -1,0 +1,8 @@
+# ignore version.json file (ci)
+package.json
+package-lock.json
+**/karma.conf.js
+**/.eslintrc.json
+.angular/
+dist/
+README.md

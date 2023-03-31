@@ -8,9 +8,9 @@ import { AssocUsageComponent } from './components/assoc-usage/assoc-usage.compon
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [AppComponent, BasicUsageComponent, AssocUsageComponent],
-  imports: [BrowserModule, NgxObjectDiagramModule, AppRoutingModule],
-  providers: [],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, BasicUsageComponent, AssocUsageComponent],
+    imports: [BrowserModule, NgxObjectDiagramModule, AppRoutingModule],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

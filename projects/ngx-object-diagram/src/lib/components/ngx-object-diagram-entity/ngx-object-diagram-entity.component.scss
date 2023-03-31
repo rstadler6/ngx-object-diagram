@@ -1,13 +1,13 @@
 .ngx-object-diagram-entity-border {
-  height: var(--ngx-obj-diagram-entity-min-height);
-  width: var(--ngx-obj-diagram-entity-min-width);
+    height: var(--ngx-obj-diagram-entity-min-height);
+    width: var(--ngx-obj-diagram-entity-min-width);
 }
 
 text {
-  fill: #000;
-  font-family: var(--ngx-obj-diagram-font-family);
+    fill: #000;
+    font-family: var(--ngx-obj-diagram-font-family);
 }
 
 rect {
-  stroke: var(--ngx-obj-diagram-stroke-color);
+    stroke: var(--ngx-obj-diagram-stroke-color);
 }

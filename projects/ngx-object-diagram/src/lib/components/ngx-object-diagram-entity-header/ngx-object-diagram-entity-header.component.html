@@ -1,27 +1,15 @@
 <svg>
-  <rect
-    stroke="#000"
-    height="40"
-    width="225"
-    [attr.y]="y - 40"
-    [attr.x]="x"
-    fill="#fff"
-  />
-  <text
-    xml:space="preserve"
-    text-anchor="start"
-    font-size="19"
-    stroke-width="0"
-    class="ngx-obj-header-title"
-    [attr.y]="y - 15"
-    [attr.x]="x"
-  >
-    {{ text }}
-  </text>
-  <g
-    ngx-action-button
-    (execute)="onAction()"
-    [x]="x + 195"
-    [y]="y - 15"
-  />
+    <rect stroke="#000" height="40" width="225" [attr.y]="y - 40" [attr.x]="x" fill="#fff" />
+    <text
+        xml:space="preserve"
+        text-anchor="start"
+        font-size="19"
+        stroke-width="0"
+        class="ngx-obj-header-title"
+        [attr.y]="y - 15"
+        [attr.x]="x"
+    >
+        {{ text }}
+    </text>
+    <g ngx-action-button (execute)="onAction()" [x]="x + 195" [y]="y - 15" />
 </svg>

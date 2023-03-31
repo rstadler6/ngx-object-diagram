@@ -1,17 +1,17 @@
 :host {
-  --ngx-obj-diagram-entity-min-width: 225px;
-  --ngx-obj-diagram-entity-min-height: 300px;
+    --ngx-obj-diagram-entity-min-width: 225px;
+    --ngx-obj-diagram-entity-min-height: 300px;
 
-  --ngx-obj-diagram-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --ngx-obj-diagram-stroke-color: #000;
-  --ngx-obj-diagram-header-font-size: 16px;
-  --ngx-obj-diagram-header-font-color: #000;
+    --ngx-obj-diagram-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --ngx-obj-diagram-stroke-color: #000;
+    --ngx-obj-diagram-header-font-size: 16px;
+    --ngx-obj-diagram-header-font-color: #000;
 
-  --ngx-obj-diagram-line-stroke-color: #000;
-  --ngx-obj-diagram-line-stroke-width: 2px;
+    --ngx-obj-diagram-line-stroke-color: #000;
+    --ngx-obj-diagram-line-stroke-width: 2px;
 
-  svg {
-    height: var(--ngx-obj-diagram-height, 600px);
-    width: var(--ngx-obj-diagram-width, 800px);
-  }
+    svg {
+        height: var(--ngx-obj-diagram-height, 600px);
+        width: var(--ngx-obj-diagram-width, 800px);
+    }
 }

@@ -8,18 +8,16 @@ import { NgxActionButtonComponent } from './components/ngx-action-button/ngx-act
 import { NgxAddAssocButtonComponent } from './components/ngx-add-assoc-button/ngx-add-assoc-button.component';
 
 @NgModule({
-  declarations: [
-    NgxObjectDiagramComponent,
-    NgxObjectDiagramEntityComponent,
-    NgxObjectDiagramEntityHeaderComponent,
-    NgxObjectDiagramEntityComponent,
-    NgxObjectDiagramLineComponent,
-    NgxActionButtonComponent,
-    NgxAddAssocButtonComponent
-  ],
-  imports: [
-    CommonModule,
-  ],
-  exports: [NgxObjectDiagramComponent],
+    declarations: [
+        NgxObjectDiagramComponent,
+        NgxObjectDiagramEntityComponent,
+        NgxObjectDiagramEntityHeaderComponent,
+        NgxObjectDiagramEntityComponent,
+        NgxObjectDiagramLineComponent,
+        NgxActionButtonComponent,
+        NgxAddAssocButtonComponent,
+    ],
+    imports: [CommonModule],
+    exports: [NgxObjectDiagramComponent],
 })
 export class NgxObjectDiagramModule {}
