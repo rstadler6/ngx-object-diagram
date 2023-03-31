@@ -19,7 +19,7 @@ export class NgxActionButtonComponent {
     @Output()
     public execute = new EventEmitter<void>();
 
-    @HostListener('click')
+    @HostListener('mouseup')
     public executeClicked() {
         this.execute.emit();
     }

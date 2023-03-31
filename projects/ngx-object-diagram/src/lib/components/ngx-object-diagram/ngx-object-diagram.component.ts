@@ -36,7 +36,7 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
                     fieldName: key,
                     fieldKey: key,
                     value: entity[key],
-                    isAssoc: entity[key] instanceof Array<Record<string, unknown>>,
+                    isAssoc: (entity[key] instanceof Array<Record<string, unknown>>),
                 };
             });
     };

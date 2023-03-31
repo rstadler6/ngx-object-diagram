@@ -1,0 +1,32 @@
+name: Angular CI Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run prettier checks
+        run: npx prettier --check .
+
+      - name: Lint lib
+        run: npx ng lint ngx-object-diagram
+
+      - name: Lint demo-app
+        run: npx ng lint demo-app
+
+      - name: Build
+        run: npx ng build ngx-object-diagram --configuration production

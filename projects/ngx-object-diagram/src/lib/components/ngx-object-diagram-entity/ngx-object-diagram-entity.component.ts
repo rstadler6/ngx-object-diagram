@@ -52,7 +52,6 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
         return this.isDragging ? 'grabbing !important' : 'default';
     }
 
-    @HostListener('mousedown')
     public onMousedown() {
         this.isDragging = true;
     }
@@ -68,7 +67,6 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
             return;
         }
 
-        event.preventDefault();
         this.x = event.offsetX - 50;
         this.y = event.offsetY;
         this.dragged.emit({ guid: this.guid, x: this.x, y: this.y });

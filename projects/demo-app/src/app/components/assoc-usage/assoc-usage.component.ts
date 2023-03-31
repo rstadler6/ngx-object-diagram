@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BehaviorSubject } from "rxjs";
 
 @Component({
     selector: 'app-assoc-usage',
@@ -6,60 +7,64 @@ import { Component } from '@angular/core';
     styleUrls: ['../../app.component.scss'],
 })
 export class AssocUsageComponent {
-    public objs = [
+    public objs = new BehaviorSubject<Record<string, unknown>[]>([
         {
             guid: '123',
-            displayName: 'geschaeft1',
-            typeName: 'Geschaeft',
-            titel: 'Testinhalt',
-            beginn: '01.01.2023',
-            dokumente: [
-                { guid: '456', field: 'geschaeft' },
-                { guid: '789', field: 'geschaeft' },
+            displayName: 'Darth Vader',
+            typeName: 'Person',
+            title: 'darth vader',
+            birthday: '01.01.1950',
+            relations: [
+                { guid: '456', field: 'relations' },
+                { guid: '789', field: 'relations' },
             ],
         },
         {
             guid: '456',
-            titel: 'Testgugus',
-            displayName: 'dok 1',
-            typeName: 'Dokument',
-            dokumentDatum: '01.02.2002',
-            geschaeft: [],
+            displayName: 'Death Star',
+            typeName: 'Object',
+            title: 'Death Star',
+            created: '01.02.1980',
+            relatedPersons: [],
         },
         {
             guid: '789',
-            titel: 'Test 123',
-            displayName: 'dok 2',
-            typeName: 'Dokument',
+            displayName: 'Luke Skywalker',
+            title: 'Luke Skywalker',
+            typeName: 'Person',
+            relatedPersons: [],
         },
-    ];
+    ]);
 
+    public objs$ = this.objs.asObservable();
     public assocs = [
         {
             guidA: '123',
             guidB: '456',
-            fieldA: 'dokumente',
-            fieldB: 'geschaeft',
+            fieldA: 'relations',
+            fieldB: 'relatedPersons',
         },
         {
             guidA: '123',
             guidB: '789',
-            fieldA: 'dokumente',
-            fieldB: 'geschaeft',
+            fieldA: 'relations',
+            fieldB: 'relatedPersons',
         },
     ];
 
-    addObj() {
-        this.objs.push({
+    public addObj(data: { guid: unknown, assocKey: string }) {
+        console.log('addobj');
+        const newObjs = [...this.objs.getValue(), {
             guid: '101112',
-            titel: 'Test 123',
-            displayName: 'dok 2',
-            typeName: 'Dokument',
-            dokumentDatum: '01.02.2005',
-            geschaeft: [
-                // @ts-ignore
-                { guid: '123', field: 'dokumente' },
+            title: 'Another Person',
+            displayName: 'another person',
+            typeName: 'Person',
+            birthday: '01.02.2005',
+            relations: [
+                { guid: '123', field: 'relations' },
             ],
-        });
+        }];
+
+        this.objs.next(newObjs);
     }
 }

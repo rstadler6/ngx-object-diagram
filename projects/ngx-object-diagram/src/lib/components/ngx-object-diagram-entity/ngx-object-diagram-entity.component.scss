@@ -11,3 +11,7 @@ text {
 rect {
     stroke: var(--ngx-obj-diagram-stroke-color);
 }
+
+.ngx-entity-header:hover {
+    cursor: grab;
+}

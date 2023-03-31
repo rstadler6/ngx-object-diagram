@@ -3,7 +3,7 @@
     <p>This sample shows the usage with associated objects</p>
 
     <div class="card-container">
-        <ngx-object-diagram [entities]="objs" [assocs]="assocs" (executeAction)="addObj()"></ngx-object-diagram>
+        <ngx-object-diagram [entities]="(objs$ | async) ?? []" [assocs]="assocs" (addAssoc)="addObj($event)"></ngx-object-diagram>
     </div>
 
     <a routerLink="/123" routerLinkActive="active">Basic Usage</a>
