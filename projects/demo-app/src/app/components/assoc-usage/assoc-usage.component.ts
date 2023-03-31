@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-assoc-usage',
@@ -52,19 +52,32 @@ export class AssocUsageComponent {
         },
     ];
 
-    public addObj(data: { guid: unknown, assocKey: string }) {
+    public addObj(data: { guid: unknown; assocKey: string }): void {
         console.log('addobj');
-        const newObjs = [...this.objs.getValue(), {
-            guid: '101112',
-            title: 'Another Person',
-            displayName: 'another person',
-            typeName: 'Person',
-            birthday: '01.02.2005',
-            relations: [
-                { guid: '123', field: 'relations' },
-            ],
-        }];
+        const newObjs = [
+            ...this.objs.getValue(),
+            {
+                guid: '101112',
+                title: 'Another Person',
+                displayName: 'another person',
+                typeName: 'Person',
+                birthday: '01.02.2005',
+                relations: [{ guid: '123', field: 'relations' }],
+            },
+        ];
 
         this.objs.next(newObjs);
+    }
+
+    public doSomething(data: { guid: unknown }): void {
+        const obj = this.objs.getValue().find(obj => obj['guid'] === data.guid);
+
+        if (!obj) {
+            return;
+        }
+
+        obj['title'] = 'this name changed';
+        console.log('changed', obj);
+        this.objs.next([...this.objs.getValue().filter(obj => obj['guid'] === data.guid), obj]);
     }
 }
