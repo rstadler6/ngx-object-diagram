@@ -22,9 +22,6 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
   public guid: unknown;
 
   @Input()
-  public guidProp = 'guid';
-
-  @Input()
   public typeNameProp = 'typeName';
 
   @Input()

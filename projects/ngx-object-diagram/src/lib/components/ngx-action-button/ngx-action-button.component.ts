@@ -13,9 +13,8 @@ export class NgxActionButtonComponent {
   @Input()
   public y = 0;
 
-  // TODO: replace with icon
   @Input()
-  public displayText = '-';
+  public displayText = '↻';
 
   @Output()
   public execute = new EventEmitter<void>();

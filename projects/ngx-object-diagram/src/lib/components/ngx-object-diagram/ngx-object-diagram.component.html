@@ -5,9 +5,9 @@
         #entity
         ngx-object-diagram-entity
         [x]="50 + ei * 250"
-        [title]="entity[this.displayNameProp] + ' : ' + entity[this.typeNameProp]"
+        [title]="entity[displayNameProp] + ' : ' + entity[typeNameProp]"
         [fields]="trackFields(entity)"
-        [guid]="entity[this.guidProp]"
+        [guid]="entity[guidProp]"
         (executeAction)="onAction($event)"
         (addAssoc)="onAddAssoc($event)"
         (dragged)="onEntityDragged($event)"
