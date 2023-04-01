@@ -43,6 +43,9 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
     @Input()
     public assocs: NgxObjectDiagramAssoc[] = [];
 
+    @Input()
+    public maxTextLength: number = 20;
+
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
 

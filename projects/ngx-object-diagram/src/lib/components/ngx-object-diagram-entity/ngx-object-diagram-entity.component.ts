@@ -36,6 +36,9 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
     @Input()
     public fields: NgxObjectDiagramEntityField[] = [];
 
+    @Input()
+    public maxTextLength: number = 30;
+
     @Output()
     public dragged = new EventEmitter<{ guid: unknown; x: number; y: number }>();
 

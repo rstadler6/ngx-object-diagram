@@ -6,6 +6,7 @@
                 ngx-object-diagram-entity
                 [x]="50 + ei * 250"
                 [title]="entity[displayNameProp] + ' : ' + entity[typeNameProp]"
+                [maxTextLength]="maxTextLength"
                 [fields]="trackFields(entity)"
                 [guid]="entity[guidProp]"
                 (executeAction)="onAction($event)"

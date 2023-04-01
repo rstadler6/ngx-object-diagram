@@ -4,15 +4,15 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'app-assoc-usage',
     templateUrl: './assoc-usage.component.html',
-    styleUrls: ['../../app.component.scss'],
+    styleUrls: ['assoc-usage.component.scss'],
 })
 export class AssocUsageComponent {
     public objs = new BehaviorSubject<Record<string, unknown>[]>([
         {
             guid: '123',
-            displayName: 'Darth Vader',
+            displayName: 'Darth Vader this is a verly long stuff',
             typeName: 'Person',
-            title: 'darth vader',
+            title: 'Darth Vader this is a verly long stuff',
             birthday: '01.01.1950',
             relations: [
                 { guid: '456', field: 'relations' },
