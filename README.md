@@ -15,7 +15,7 @@ Please note, that it is not a target or intention of it to reach uml conformity.
 
 - customize color, font-family and sizes via css-variables
 - Entities can be dragged
-- Support for simple entities as well as overrides for more complex objects
+- Support for simple entities as well as overrides for more complex objects with associations
 
 ## Documentation
 
