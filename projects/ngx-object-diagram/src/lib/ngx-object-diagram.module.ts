@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgxObjectDiagramComponent } from './components/ngx-object-diagram/ngx-object-diagram.component';
 import { NgxObjectDiagramEntityComponent } from './components/ngx-object-diagram-entity/ngx-object-diagram-entity.component';
 import { NgxObjectDiagramEntityHeaderComponent } from './components/ngx-object-diagram-entity-header/ngx-object-diagram-entity-header.component';
-import { NgxObjectDiagramLineComponent } from './components/ngx-object-diagram-line/ngx-object-diagram-line.component';
 import { NgxActionButtonComponent } from './components/ngx-action-button/ngx-action-button.component';
+import { FilterAssocPipe } from './pipes/filter-assoc.pipe';
 
 @NgModule({
     declarations: [
@@ -12,8 +12,8 @@ import { NgxActionButtonComponent } from './components/ngx-action-button/ngx-act
         NgxObjectDiagramEntityComponent,
         NgxObjectDiagramEntityHeaderComponent,
         NgxObjectDiagramEntityComponent,
-        NgxObjectDiagramLineComponent,
         NgxActionButtonComponent,
+        FilterAssocPipe,
     ],
     imports: [CommonModule],
     exports: [NgxObjectDiagramComponent],
