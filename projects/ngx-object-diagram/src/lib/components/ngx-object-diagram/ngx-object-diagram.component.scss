@@ -15,3 +15,8 @@
         width: var(--ngx-obj-diagram-width, 800px);
     }
 }
+
+line {
+    stroke: var(--ngx-obj-diagram-line-stroke-color);
+    stroke-width: var(--ngx-obj-diagram-line-stroke-width);
+}
