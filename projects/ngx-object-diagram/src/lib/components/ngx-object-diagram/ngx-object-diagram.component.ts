@@ -1,4 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList,
+    ViewChildren,
+} from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
 import { NgxObjectDiagramAssoc } from '../../model/ngx-object-diagram-assoc';
 import { NgxObjectDiagramEntityComponent } from '../ngx-object-diagram-entity/ngx-object-diagram-entity.component';
@@ -10,7 +20,7 @@ import { CoordinatesService } from '../../services/coordinates.service';
     styleUrls: ['ngx-object-diagram.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxObjectDiagramComponent implements AfterViewInit {
+export class NgxObjectDiagramComponent implements OnInit {
     @ViewChildren('entity')
     public entityComponents = new QueryList<NgxObjectDiagramEntityComponent>();
 
@@ -41,7 +51,13 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
     public entities: Record<string, unknown>[] = [];
 
     @Input()
-    public assocs: NgxObjectDiagramAssoc[] = [];
+    public set assocs(value: NgxObjectDiagramAssoc[]) {
+        this._assocs = value;
+        this._refreshAssocs();
+    }
+    public get assocs(): NgxObjectDiagramAssoc[] {
+        return this._assocs;
+    }
 
     @Input()
     public maxTextLength: number = 20;
@@ -54,21 +70,11 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
 
     public readonly coords$ = this._coordinateService.coordinates$;
 
+    private _assocs: NgxObjectDiagramAssoc[] = [];
     constructor(private readonly _coordinateService: CoordinatesService) {}
 
-    public ngAfterViewInit() {
-        setTimeout(() => {
-            this.assocs.forEach(assoc => {
-                const entityA = this.entityComponents?.find(e => e.guid === assoc?.guidA);
-                const entityB = this.entityComponents?.find(e => e.guid === assoc?.guidB);
-                if (!entityA || !entityB || !assoc) {
-                    return;
-                }
-                const indexA = entityA.fields.findIndex(field => field.fieldKey === assoc?.fieldA);
-                const indexB = entityA.fields.findIndex(field => field.fieldKey === assoc?.fieldB);
-                this._coordinateService.upsertCoordinate(assoc, entityA.x, entityA.y, entityB.x, entityB.y, indexA, indexB);
-            });
-        }, 0);
+    public ngOnInit() {
+        this._refreshAssocs();
     }
 
     public onEntityDragged(dragData: { guid: unknown; x: number; y: number }) {
@@ -92,5 +98,20 @@ export class NgxObjectDiagramComponent implements AfterViewInit {
 
     public onAddAssoc(event: { guid: unknown; assocKey: string }) {
         this.addAssoc.emit(event);
+    }
+
+    private _refreshAssocs() {
+        setTimeout(() => {
+            this.assocs.forEach(assoc => {
+                const entityA = this.entityComponents?.find(e => e.guid === assoc?.guidA);
+                const entityB = this.entityComponents?.find(e => e.guid === assoc?.guidB);
+                if (!entityA || !entityB || !assoc) {
+                    return;
+                }
+                const indexA = entityA.fields.findIndex(field => field.fieldKey === assoc?.fieldA);
+                const indexB = entityA.fields.findIndex(field => field.fieldKey === assoc?.fieldB);
+                this._coordinateService.upsertCoordinate(assoc, entityA.x, entityA.y, entityB.x, entityB.y, indexA, indexB);
+            });
+        });
     }
 }

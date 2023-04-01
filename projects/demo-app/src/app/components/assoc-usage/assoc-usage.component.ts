@@ -54,19 +54,18 @@ export class AssocUsageComponent {
 
     public addObj(data: { guid: unknown; assocKey: string }): void {
         console.log('addobj');
-        const newObjs = [
-            ...this.objs.getValue(),
-            {
-                guid: '101112',
-                title: 'Another Person',
-                displayName: 'another person',
-                typeName: 'Person',
-                birthday: '01.02.2005',
-                relations: [{ guid: '123', field: 'relations' }],
-            },
-        ];
+        const newObj = {
+            guid: '101112',
+            title: 'Another Person',
+            displayName: 'another person',
+            typeName: 'Person',
+            birthday: '01.02.2005',
+            relations: [{ guid: '123', field: 'relations' }],
+        };
 
+        const newObjs = [...this.objs.getValue(), newObj];
         this.objs.next(newObjs);
+        this.assocs = [...this.assocs, { fieldA: data.assocKey, guidA: data.guid + '', fieldB: 'relations', guidB: newObj.guid }];
     }
 
     public doSomething(data: { guid: unknown }): void {
