@@ -17,7 +17,7 @@ export class NgxObjectDiagramEntityHeaderComponent {
     public y = 0;
 
     @Input()
-    public maxTextLength: number = 30;
+    public maxTextLength = 30;
 
     @Output()
     public executeAction = new EventEmitter<void>();

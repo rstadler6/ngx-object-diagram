@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { map, Observable } from 'rxjs';
 import { NgxObjectDiagramAssoc } from '../model/ngx-object-diagram-assoc';
 import { NgxObjectDiagramAssocCoords } from '../model/ngx-object-diagram-assoc-coords';
 

@@ -22,7 +22,8 @@
             "prefix": "ngx",
             "style": "camelCase"
           }
-        ]
+        ],
+        "no-empty": "off"
       }
     },
     {

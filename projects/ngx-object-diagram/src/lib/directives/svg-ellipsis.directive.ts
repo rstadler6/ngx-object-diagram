@@ -10,9 +10,9 @@ export class SvgEllipsisDirective implements OnInit {
     public text: string | undefined = '';
 
     @Input()
-    public leaveSpace: number = 30;
+    public leaveSpace = 30;
 
-    private _width: number = 0;
+    private _width = 0;
 
     constructor(private _el: ElementRef) {}
 

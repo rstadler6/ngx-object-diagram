@@ -1,14 +1,4 @@
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-    QueryList,
-    ViewChildren,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
 import { NgxObjectDiagramAssoc } from '../../model/ngx-object-diagram-assoc';
 import { NgxObjectDiagramEntityComponent } from '../ngx-object-diagram-entity/ngx-object-diagram-entity.component';
@@ -60,7 +50,7 @@ export class NgxObjectDiagramComponent implements OnInit {
     }
 
     @Input()
-    public maxTextLength: number = 20;
+    public maxTextLength = 20;
 
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
