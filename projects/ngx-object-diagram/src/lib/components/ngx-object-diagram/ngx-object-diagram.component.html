@@ -1,28 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-    <g>
+<svg xmlns="http://www.w3.org/2000/svg" #svg>
+    <g *ngIf="positions">
         <g *ngFor="let entity of entities; let ei = index">
             <g
                 #entity
                 ngx-object-diagram-entity
-                [x]="50 + ei * 50"
+                [point]="positions[entity[guidProp] + '']"
                 [title]="entity[displayNameProp] + ' : ' + entity[typeNameProp]"
                 [maxTextLength]="maxTextLength"
                 [fields]="trackFields(entity)"
                 [guid]="entity[guidProp]"
                 (executeAction)="onAction($event)"
                 (addAssoc)="onAddAssoc($event)"
-                (dragged)="onEntityDragged($event)"
             ></g>
         </g>
-        <g *ngIf="coords$ | async as allCoordinates">
+        <g>
             <g *ngFor="let assoc of assocs">
                 <line
-                    *ngIf="allCoordinates | filterAssoc : assoc as coords"
                     xmlns:svg="http://www.w3.org/2000/svg"
-                    [attr.x1]="coords.a.x > coords.b.x ? coords.a.x : coords.a.x + 225"
-                    [attr.y1]="coords.a.y"
-                    [attr.x2]="coords.b.x > coords.a.x ? coords.b.x : coords.b.x + 225"
-                    [attr.y2]="coords.b.y"
+                    [attr.x1]="x1(assoc)"
+                    [attr.y1]="y1(assoc)"
+                    [attr.x2]="x2(assoc)"
+                    [attr.y2]="y2(assoc)"
                 />
             </g>
         </g>

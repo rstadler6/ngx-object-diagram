@@ -4,7 +4,6 @@ import { NgxObjectDiagramComponent } from './components/ngx-object-diagram/ngx-o
 import { NgxObjectDiagramEntityComponent } from './components/ngx-object-diagram-entity/ngx-object-diagram-entity.component';
 import { NgxObjectDiagramEntityHeaderComponent } from './components/ngx-object-diagram-entity-header/ngx-object-diagram-entity-header.component';
 import { NgxActionButtonComponent } from './components/ngx-action-button/ngx-action-button.component';
-import { FilterAssocPipe } from './pipes/filter-assoc.pipe';
 import { SvgEllipsisDirective } from './directives/svg-ellipsis.directive';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { SvgEllipsisDirective } from './directives/svg-ellipsis.directive';
         NgxObjectDiagramEntityHeaderComponent,
         NgxObjectDiagramEntityComponent,
         NgxActionButtonComponent,
-        FilterAssocPipe,
         SvgEllipsisDirective,
     ],
     imports: [CommonModule],

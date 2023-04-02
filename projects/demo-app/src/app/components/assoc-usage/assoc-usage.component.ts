@@ -53,9 +53,8 @@ export class AssocUsageComponent {
     ];
 
     public addObj(data: { guid: unknown; assocKey: string }): void {
-        console.log('addobj');
         const newObj = {
-            guid: '101112',
+            guid: new Date().getUTCMilliseconds().toString(),
             title: 'Another Person',
             displayName: 'another person',
             typeName: 'Person',
@@ -69,13 +68,13 @@ export class AssocUsageComponent {
     }
 
     public doSomething(data: { guid: unknown }): void {
-        const obj = this.objs.getValue().find(obj => obj['guid'] === data.guid);
-
+        let obj = this.objs.getValue().find(obj => obj['guid'] === data.guid);
         if (!obj) {
             return;
         }
 
-        obj['title'] = 'this name changed';
-        this.objs.next([...this.objs.getValue().filter(obj => obj['guid'] === data.guid), obj]);
+        obj = { ...obj, title: 'this name changed' };
+        const newValues = [...this.objs.getValue().filter(obj => obj['guid'] !== data.guid), obj];
+        this.objs.next(newValues);
     }
 }
