@@ -13,22 +13,29 @@ Please note, that it is not a target or intention of it to reach uml conformity.
 
 ## Features
 
-- customize color, font-family and sizes via css-variables
-- Entities can be dragged
-- Support for simple entities as well as overrides for more complex objects with associations
+-   customize color, font-family and sizes via css-variables
+-   Entities can be dragged
+-   Support for simple entities as well as overrides for more complex objects with associations
 
 ## Documentation
 
+## Usage
+
+Please see the [demo-app](projects/demo-app/src/app/components/assoc-usage/assoc-usage.component.ts) for how a possible implementation with associations could look like.
+
 ### Theming
-You can override colors, fonts and other styles using css 3 variables.
+
+You can override colors, fonts and other styles using css-3 variables.
 
 In your component.html
-``` html
+
+```html
 <ngx-object-diagram class="my-diagram" [objs]="simpleObjs"></ngx-object-diagram>
 ```
 
 In your component.scss
-``` scss
+
+```scss
 .my-diagram {
     --ngx-obj-diagram-height: 600px;
     --ngx-obj-diagram-width: 800px;
@@ -37,22 +44,22 @@ In your component.scss
 ```
 
 Available variables:
-| CSS variable                              | Default                                         |
+| CSS variable | Default |
 |-------------------------------------------|-------------------------------------------------|
-| --ngx-obj-diagram-height                  | 600px                                           |
-| --ngx-obj-diagram-width                   | 800px                                           |
-| --ngx-obj-diagram-font-family             | 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif |
-| --ngx-obj-diagram-font-size               | 16px                                            |
-| --ngx-obj-diagram-entity-background-color | #fff                                            |
-| --ngx-obj-diagram-entity-min-height       | 300px                                           |
-| --ngx-obj-diagram-entity-min-width        | 225px                                           |
-| --ngx-obj-diagram-header-font-size        | 16px                                            |
-| --ngx-obj-diagram-header-font-color       | #000                                            |
-| --ngx-obj-diagram-header-background-color | #fff                                            |
-| --ngx-obj-diagram-stroke-color            | #000                                            |
-| --ngx-obj-diagram-line-stroke-color       | #000                                            |
-| --ngx-obj-diagram-line-stroke-width       | 2px                                             |
-| --ngx-obj-diagram-button-font-size        | 19px                                            |
+| --ngx-obj-diagram-height | 600px |
+| --ngx-obj-diagram-width | 800px |
+| --ngx-obj-diagram-font-family | 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif |
+| --ngx-obj-diagram-font-size | 16px |
+| --ngx-obj-diagram-entity-background-color | #fff |
+| --ngx-obj-diagram-entity-min-height | 300px |
+| --ngx-obj-diagram-entity-min-width | 225px |
+| --ngx-obj-diagram-header-font-size | 16px |
+| --ngx-obj-diagram-header-font-color | #000 |
+| --ngx-obj-diagram-header-background-color | #fff |
+| --ngx-obj-diagram-stroke-color | #000 |
+| --ngx-obj-diagram-line-stroke-color | #000 |
+| --ngx-obj-diagram-line-stroke-width | 2px |
+| --ngx-obj-diagram-button-font-size | 19px |
 
 # Status
 

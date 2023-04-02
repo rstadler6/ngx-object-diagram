@@ -76,7 +76,6 @@ export class AssocUsageComponent {
         }
 
         obj['title'] = 'this name changed';
-        console.log('changed', obj);
         this.objs.next([...this.objs.getValue().filter(obj => obj['guid'] === data.guid), obj]);
     }
 }
