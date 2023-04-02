@@ -1,5 +1,4 @@
 import {
-    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -22,7 +21,7 @@ import { NgxObjectDiagramEntityComponent } from '../ngx-object-diagram-entity/ng
     styleUrls: ['ngx-object-diagram.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxObjectDiagramComponent implements OnInit, AfterViewInit {
+export class NgxObjectDiagramComponent implements OnInit {
     @ViewChildren('entity')
     public entityComponents?: QueryList<NgxObjectDiagramEntityComponent>;
 
@@ -91,12 +90,6 @@ export class NgxObjectDiagramComponent implements OnInit, AfterViewInit {
         this._entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
     }
 
-    public ngAfterViewInit() {
-        setTimeout(() => {
-            this._calculatePositions();
-        }, 0);
-    }
-
     public onAction(entity: { guid: unknown }) {
         this.executeAction.emit(entity);
     }
@@ -106,18 +99,13 @@ export class NgxObjectDiagramComponent implements OnInit, AfterViewInit {
     }
 
     private _calculatePositions() {
-        if (!this.svg) {
-            console.log('calculatePosition, returning');
-            return;
-        }
-        console.log('calculatePosition, proceeding');
         const newPositions: { [guid: string]: { x: number; y: number } } = {};
 
         let entityGuid = this.entities[0][this.guidProp] + '';
         let entityHeight = this.trackFields(this.entities[0]).length * 10;
 
-        const clientWidth = this.svg?.nativeElement.clientWidth ?? 0;
-        const clientHeight = this.svg?.nativeElement.clientHeight ?? 0;
+        const clientWidth = this._elementRef.nativeElement.firstChild.clientWidth - 30;
+        const clientHeight = this._elementRef.nativeElement.firstChild.clientHeight - 20;
 
         const centerX = clientWidth / 2 - this._entityWidth / 2;
         const centerY = clientHeight / 2 - (entityHeight + 20);
@@ -126,7 +114,6 @@ export class NgxObjectDiagramComponent implements OnInit, AfterViewInit {
         const angle = (2 * Math.PI) / this.entities.length;
 
         newPositions[entityGuid] = { x: centerX, y: centerY };
-
         const maxX = clientWidth - this._entityWidth - 10;
 
         for (let i = 1; i < this.entities.length; i++) {
@@ -135,12 +122,11 @@ export class NgxObjectDiagramComponent implements OnInit, AfterViewInit {
 
             const x = Math.max(Math.min(centerX + radius * Math.cos(angle * (i - 1)), maxX), 10);
             const y = Math.max(Math.min(centerY + radius * Math.sin(angle * (i - 1)), clientHeight - entityHeight), 50);
-            console.log(entityHeight, y);
             newPositions[entityGuid] = { x, y };
         }
 
         this.positions = newPositions;
-        this._cdr.markForCheck();
+        this._cdr.detectChanges();
     }
 
     public x1(assoc: NgxObjectDiagramAssoc) {

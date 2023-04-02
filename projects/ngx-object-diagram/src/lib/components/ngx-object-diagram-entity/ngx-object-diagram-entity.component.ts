@@ -17,14 +17,7 @@ export class NgxObjectDiagramEntityComponent {
     public displayName = 'displayName';
 
     @Input()
-    public set point(value: { x: number; y: number }) {
-        if (value) {
-            this._point = value;
-        }
-    }
-    public get point(): { x: number; y: number } {
-        return this._point;
-    }
+    public point: { x: number; y: number } = { x: 0, y: 0 };
 
     @Input()
     public height = 300;
@@ -48,8 +41,6 @@ export class NgxObjectDiagramEntityComponent {
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
 
     public isDragging = false;
-
-    private _point: { x: number; y: number } = { x: 300, y: 150 };
 
     @HostBinding('style.cursor')
     public get cursor(): string {
