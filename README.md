@@ -56,5 +56,5 @@ Available variables:
 
 # Status
 
-This Project is heavy work in progress and it is likely to change and or break.
-You are welcome to send Pullrequests for improvements or new features.
+This project is heavy work in progress and it is likely to change and or break.
+You are welcome to send pullrequests for improvements or new features.
