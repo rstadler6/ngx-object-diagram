@@ -63,7 +63,6 @@ export class NgxObjectDiagramComponent implements OnInit {
     @Input()
     public set assocs(value: NgxObjectDiagramAssoc[]) {
         this._assocs = value;
-        this._calculatePositions();
     }
     public get assocs(): NgxObjectDiagramAssoc[] {
         return this._assocs;
@@ -88,6 +87,7 @@ export class NgxObjectDiagramComponent implements OnInit {
 
     public ngOnInit() {
         this._entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
+        this._calculatePositions();
     }
 
     public onAction(entity: { guid: unknown }) {
@@ -104,8 +104,8 @@ export class NgxObjectDiagramComponent implements OnInit {
         let entityGuid = this.entities[0][this.guidProp] + '';
         let entityHeight = this.trackFields(this.entities[0]).length * 10;
 
-        const clientWidth = this._elementRef.nativeElement.firstChild.clientWidth - 30;
-        const clientHeight = this._elementRef.nativeElement.firstChild.clientHeight - 20;
+        const clientWidth = this._elementRef.nativeElement.firstChild.clientWidth;
+        const clientHeight = this._elementRef.nativeElement.firstChild.clientHeight;
 
         const centerX = clientWidth / 2 - this._entityWidth / 2;
         const centerY = clientHeight / 2 - (entityHeight + 20);
