@@ -20,12 +20,6 @@ export class NgxObjectDiagramEntityComponent {
     public point: { x: number; y: number } = { x: 0, y: 0 };
 
     @Input()
-    public height = 300;
-
-    @Input()
-    public width = 225;
-
-    @Input()
     public title: string | unknown = '';
 
     @Input()
@@ -42,11 +36,6 @@ export class NgxObjectDiagramEntityComponent {
 
     public isDragging = false;
 
-    @HostBinding('style.cursor')
-    public get cursor(): string {
-        return this.isDragging ? 'grabbing !important' : 'default';
-    }
-
     public onMousedown() {
         this.isDragging = true;
     }
@@ -62,8 +51,9 @@ export class NgxObjectDiagramEntityComponent {
             return;
         }
 
-        this.point.x = event.offsetX - 50;
-        this.point.y = event.offsetY;
+        event.preventDefault();
+        this.point.x = event.offsetX - 100;
+        this.point.y = event.offsetY + 15;
     }
 
     public onAction() {

@@ -14,6 +14,7 @@ rect {
     fill: var(--entity-background-color);
 }
 
-.ngx-entity-header:hover {
-    cursor: grab;
+.ngx-entity-header:hover,
+.ngx-entity-header:focus {
+    cursor: move;
 }
