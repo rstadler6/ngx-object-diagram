@@ -1,14 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
-import { CoordinatesService } from '../../services/coordinates.service';
-
 @Component({
     selector: '[ngx-object-diagram-entity]',
     templateUrl: './ngx-object-diagram-entity.component.html',
     styleUrls: ['./ngx-object-diagram-entity.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxObjectDiagramEntityComponent implements OnInit {
+export class NgxObjectDiagramEntityComponent {
     @Input()
     public guid: unknown;
 
@@ -19,10 +17,14 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
     public displayName = 'displayName';
 
     @Input()
-    public x = 300;
-
-    @Input()
-    public y = 150;
+    public set point(value: { x: number; y: number }) {
+        if (value) {
+            this._point = value;
+        }
+    }
+    public get point(): { x: number; y: number } {
+        return this._point;
+    }
 
     @Input()
     public height = 300;
@@ -40,15 +42,14 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
     public maxTextLength = 30;
 
     @Output()
-    public dragged = new EventEmitter<{ guid: unknown; x: number; y: number }>();
-
-    @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
 
     @Output()
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
 
     public isDragging = false;
+
+    private _point: { x: number; y: number } = { x: 300, y: 150 };
 
     @HostBinding('style.cursor')
     public get cursor(): string {
@@ -70,14 +71,8 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
             return;
         }
 
-        this.x = event.offsetX - 50;
-        this.y = event.offsetY;
-        this.dragged.emit({ guid: this.guid, x: this.x, y: this.y });
-    }
-
-    constructor(private readonly _coordinateService: CoordinatesService) {}
-    public ngOnInit() {
-        this._updateAssocCoords();
+        this.point.x = event.offsetX - 50;
+        this.point.y = event.offsetY;
     }
 
     public onAction() {
@@ -85,12 +80,5 @@ export class NgxObjectDiagramEntityComponent implements OnInit {
     }
     public onAddAssoc(field: NgxObjectDiagramEntityField) {
         this.addAssoc.emit({ guid: this.guid, assocKey: field.fieldKey });
-    }
-    private _updateAssocCoords() {
-        this.fields.forEach((field, index) => {
-            if (field.isAssoc) {
-                this._coordinateService.updateCoordinate(this.guid, field.fieldKey, this.x, this.y, index);
-            }
-        });
     }
 }

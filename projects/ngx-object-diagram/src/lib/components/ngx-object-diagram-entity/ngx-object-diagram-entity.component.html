@@ -3,25 +3,32 @@
         class="ngx-entity-header"
         ngx-object-diagram-entity-header
         (executeAction)="onAction()"
-        [x]="x"
-        [y]="y"
+        [x]="point.x"
+        [y]="point.y"
         [text]="title + ''"
         [maxTextLength]="maxTextLength"
         (mousedown)="onMousedown()"
     ></g>
 
     <g *ngFor="let field of fields; let fi = index">
-        <rect height="40" width="225" [attr.x]="x" [attr.y]="y + fi * 40" fill="#ffffff" />
+        <rect height="40" width="225" [attr.x]="point.x" [attr.y]="point.y + fi * 40" fill="#ffffff" />
         <text
             xml:space="preserve"
             text-anchor="start"
             font-size="16"
-            [attr.x]="x"
-            [attr.y]="y + +25 + fi * 40"
+            [attr.x]="point.x"
+            [attr.y]="point.y + 25 + fi * 40"
             stroke-width="0"
             ngxSvgEllipsis
             [text]="field.fieldName + '=' + (!field.isAssoc ? field.value + '' : '[]')"
         ></text>
-        <g *ngIf="field.isAssoc" ngx-action-button displayText="+" (execute)="onAddAssoc(field)" [x]="x + 195" [y]="y + 23 + fi * 40"></g>
+        <g
+            *ngIf="field.isAssoc"
+            ngx-action-button
+            displayText="+"
+            (execute)="onAddAssoc(field)"
+            [x]="point.x + 195"
+            [y]="point.y + 23 + fi * 40"
+        ></g>
     </g>
 </svg>

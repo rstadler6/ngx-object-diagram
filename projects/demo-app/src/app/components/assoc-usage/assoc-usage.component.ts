@@ -54,7 +54,7 @@ export class AssocUsageComponent {
 
     public addObj(data: { guid: unknown; assocKey: string }): void {
         const newObj = {
-            guid: '101112',
+            guid: new Date().getUTCMilliseconds().toString(),
             title: 'Another Person',
             displayName: 'another person',
             typeName: 'Person',
