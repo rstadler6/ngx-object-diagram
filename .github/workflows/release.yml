@@ -35,4 +35,7 @@ jobs:
 
       - name: Publish
         if: ${{ github.ref_name == 'main' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: cd dist && npx semantic-release
