@@ -38,7 +38,13 @@ export class NgxObjectDiagramComponent implements OnInit {
     };
 
     @Input()
-    public entities: Record<string, unknown>[] = [];
+    public set entities(value: Record<string, unknown>[]) {
+        this._entities = value;
+        this._refreshAssocs();
+    }
+    public get entities(): Record<string, unknown>[] {
+        return this._entities;
+    }
 
     @Input()
     public set assocs(value: NgxObjectDiagramAssoc[]) {
@@ -61,6 +67,8 @@ export class NgxObjectDiagramComponent implements OnInit {
     public readonly coords$ = this._coordinateService.coordinates$;
 
     private _assocs: NgxObjectDiagramAssoc[] = [];
+    private _entities: Record<string, unknown>[] = [];
+
     constructor(private readonly _coordinateService: CoordinatesService) {}
 
     public ngOnInit() {
