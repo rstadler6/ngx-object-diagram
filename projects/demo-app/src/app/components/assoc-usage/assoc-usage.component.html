@@ -4,6 +4,7 @@
 
     <div class="card-container">
         <ngx-object-diagram
+            class="diagram"
             [entities]="(objs$ | async) ?? []"
             [assocs]="assocs"
             (addAssoc)="addObj($event)"

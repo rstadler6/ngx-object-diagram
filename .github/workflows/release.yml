@@ -1,6 +1,8 @@
 name: Angular CI Build
 
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [main]
 
@@ -29,4 +31,8 @@ jobs:
         run: npx ng lint demo-app
 
       - name: Build
-        run: npx ng build ngx-object-diagram --configuration production
+        run: npm run build
+
+      - name: Publish
+        if: ${{ github.ref_name == 'main' }}
+        run: cd dist && npx semantic-release

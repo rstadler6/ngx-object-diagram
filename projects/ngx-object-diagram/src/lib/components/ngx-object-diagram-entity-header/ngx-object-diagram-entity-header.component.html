@@ -8,8 +8,9 @@
         class="ngx-obj-header-title"
         [attr.y]="y - 15"
         [attr.x]="x"
-    >
-        {{ text }}
-    </text>
+        ngxSvgEllipsis
+        [text]="text"
+        [leaveSpace]="60"
+    ></text>
     <g ngx-action-button (execute)="onAction()" [x]="x + 195" [y]="y - 15" />
 </svg>

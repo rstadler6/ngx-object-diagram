@@ -1,19 +1,17 @@
 :host:hover {
-  rect {
-    fill: #c1c1c1;
-  }
-  cursor: pointer;
+    rect {
+        fill: #c1c1c1;
+    }
+    cursor: pointer;
 }
 
 text {
-  fill: #000;
-  font-family: var(--ngx-obj-diagram-font-family);
+    fill: var(--font-color);
+    font-family: var(--font-family);
+    font-size: var(--button-font-size);
 }
 
 rect {
-  stroke: var(--ngx-obj-diagram-stroke-color);
-}
-
-g.ngx-action-button:hover {
-
+    stroke: var(--stroke-color);
+    fill: var(--entity-background-color);
 }

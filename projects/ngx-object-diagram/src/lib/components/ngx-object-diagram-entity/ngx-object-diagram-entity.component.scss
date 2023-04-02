@@ -1,15 +1,17 @@
 .ngx-object-diagram-entity-border {
-    height: var(--ngx-obj-diagram-entity-min-height);
-    width: var(--ngx-obj-diagram-entity-min-width);
+    max-height: var(--entity-min-height);
+    max-width: var(--entity-min-width);
 }
 
 text {
     fill: #000;
-    font-family: var(--ngx-obj-diagram-font-family);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
 }
 
 rect {
-    stroke: var(--ngx-obj-diagram-stroke-color);
+    stroke: var(--stroke-color);
+    fill: var(--entity-background-color);
 }
 
 .ngx-entity-header:hover {

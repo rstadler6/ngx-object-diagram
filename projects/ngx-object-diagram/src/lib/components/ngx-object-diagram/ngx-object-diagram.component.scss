@@ -1,17 +1,28 @@
 :host {
-    --ngx-obj-diagram-entity-min-width: 225px;
-    --ngx-obj-diagram-entity-min-height: 300px;
+    --entity-min-width: var(--ngx-obj-diagram-entity-min-width, 225px);
+    --entity-min-height: var(--ngx-obj-diagram-entity-min-height, 300px);
+    --entity-background-color: var(--ngx-obj-diagram-entity-background-color, #fff);
 
-    --ngx-obj-diagram-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --ngx-obj-diagram-stroke-color: #000;
-    --ngx-obj-diagram-header-font-size: 16px;
-    --ngx-obj-diagram-header-font-color: #000;
+    --font-family: var(--ngx-obj-diagram-font-family, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+    --font-size: var(--ngx-obj-diagram-font-size, 16px);
+    --stroke-color: var(--ngx-obj-diagram-stroke-color, #000);
 
-    --ngx-obj-diagram-line-stroke-color: #000;
-    --ngx-obj-diagram-line-stroke-width: 2px;
+    --header-font-size: var(--ngx-obj-diagram-header-font-size, 16px);
+    --header-font-color: var(--ngx-obj-diagram-header-font-color, #000);
+    --header-background-color: var(--ngx-obj-diagram-header-background-color, #fff);
+
+    --line-stroke-color: var(--ngx-obj-diagram-line-stroke-color, #000);
+    --line-stroke-width: var(--ngx-obj-diagram-line-stroke-width, 2px);
+
+    --button-font-size: var(--ngx-obj-diagram-button-font-size, 19px);
 
     svg {
         height: var(--ngx-obj-diagram-height, 600px);
         width: var(--ngx-obj-diagram-width, 800px);
     }
+}
+
+line {
+    stroke: var(--line-stroke-color);
+    stroke-width: var(--line-stroke-width);
 }

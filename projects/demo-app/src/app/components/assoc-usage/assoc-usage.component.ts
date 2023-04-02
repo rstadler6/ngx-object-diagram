@@ -4,15 +4,15 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
     selector: 'app-assoc-usage',
     templateUrl: './assoc-usage.component.html',
-    styleUrls: ['../../app.component.scss'],
+    styleUrls: ['assoc-usage.component.scss'],
 })
 export class AssocUsageComponent {
     public objs = new BehaviorSubject<Record<string, unknown>[]>([
         {
             guid: '123',
-            displayName: 'Darth Vader',
+            displayName: 'Darth Vader this is a verly long stuff',
             typeName: 'Person',
-            title: 'darth vader',
+            title: 'Darth Vader this is a verly long stuff',
             birthday: '01.01.1950',
             relations: [
                 { guid: '456', field: 'relations' },
@@ -54,19 +54,18 @@ export class AssocUsageComponent {
 
     public addObj(data: { guid: unknown; assocKey: string }): void {
         console.log('addobj');
-        const newObjs = [
-            ...this.objs.getValue(),
-            {
-                guid: '101112',
-                title: 'Another Person',
-                displayName: 'another person',
-                typeName: 'Person',
-                birthday: '01.02.2005',
-                relations: [{ guid: '123', field: 'relations' }],
-            },
-        ];
+        const newObj = {
+            guid: '101112',
+            title: 'Another Person',
+            displayName: 'another person',
+            typeName: 'Person',
+            birthday: '01.02.2005',
+            relations: [{ guid: '123', field: 'relations' }],
+        };
 
+        const newObjs = [...this.objs.getValue(), newObj];
         this.objs.next(newObjs);
+        this.assocs = [...this.assocs, { fieldA: data.assocKey, guidA: data.guid + '', fieldB: 'relations', guidB: newObj.guid }];
     }
 
     public doSomething(data: { guid: unknown }): void {

@@ -3,11 +3,12 @@
 }
 
 text {
-    fill: var(--ngx-obj-diagram-header-font-color);
-    font-size: var(--ngx-obj-diagram-header-font-size);
-    font-family: var(--ngx-obj-diagram-font-family);
+    fill: var(--header-font-color);
+    font-size: var(--header-font-size);
+    font-family: var(--font-family);
 }
 
 rect {
-    stroke: var(--ngx-obj-diagram-stroke-color);
+    stroke: var(--stroke-color);
+    fill: var(--header-background-color);
 }
