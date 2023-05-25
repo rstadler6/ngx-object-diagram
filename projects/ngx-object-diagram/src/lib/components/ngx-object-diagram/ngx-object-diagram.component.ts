@@ -92,7 +92,8 @@ export class NgxObjectDiagramComponent implements OnInit, AfterViewChecked {
 
     public ngOnInit() {
         this._entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
-        this._initialHeight = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-height'), 10) || 800;
+        this._initialHeight =
+            parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-height'), 10) || 800;
         this._calculatePositions();
     }
 
