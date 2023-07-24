@@ -16,7 +16,6 @@ import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-enti
 import { NgxObjectDiagramAssoc } from '../../model/ngx-object-diagram-assoc';
 import { NgxObjectDiagramEntityComponent } from '../ngx-object-diagram-entity/ngx-object-diagram-entity.component';
 
-
 @Component({
     selector: 'ngx-object-diagram',
     templateUrl: 'ngx-object-diagram.component.html',
