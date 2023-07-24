@@ -22,7 +22,7 @@ import { NgxObjectDiagramEntityComponent } from '../ngx-object-diagram-entity/ng
     styleUrls: ['ngx-object-diagram.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxObjectDiagramComponent implements OnInit, AfterViewChecked {
+export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implements OnInit, AfterViewChecked {
     @ViewChildren('entity')
     public entityComponents?: QueryList<NgxObjectDiagramEntityComponent>;
 
@@ -47,17 +47,17 @@ export class NgxObjectDiagramComponent implements OnInit, AfterViewChecked {
                     fieldName: key,
                     fieldKey: key,
                     value: entity[key],
-                    isAssoc: entity[key] instanceof Array<Record<string, unknown>>,
+                    isAssoc: entity[key] instanceof Array,
                 };
             });
     };
 
     @Input()
-    public set entities(value: Record<string, unknown>[]) {
-        this._entities = value;
+    public set entities(value: unknown[]) {
+        this._entities = value as T[];
         this._calculatePositions();
     }
-    public get entities(): Record<string, unknown>[] {
+    public get entities(): T[] {
         return this._entities;
     }
 
@@ -84,7 +84,7 @@ export class NgxObjectDiagramComponent implements OnInit, AfterViewChecked {
     public positions?: { [guid: string]: { x: number; y: number } };
 
     private _assocs: NgxObjectDiagramAssoc[] = [];
-    private _entities: Record<string, unknown>[] = [];
+    private _entities: T[] = [];
     private _entityWidth = 0;
     private _initialHeight = 800;
 
