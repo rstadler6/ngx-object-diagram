@@ -43,7 +43,7 @@ The `ngx-object-diagram` component can be configured with the following properti
                     fieldName: key,
                     fieldKey: key,
                     value: entity[key],
-                    isAssoc: entity[key] instanceof Array<Record<string, unknown>>,
+                    isAssoc: entity[key] instanceof Array,
                 };
             });
     };

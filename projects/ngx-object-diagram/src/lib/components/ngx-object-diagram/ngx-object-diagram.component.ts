@@ -1,4 +1,5 @@
 import {
+    AfterViewChecked,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -21,7 +22,7 @@ import { NgxObjectDiagramEntityComponent } from '../ngx-object-diagram-entity/ng
     styleUrls: ['ngx-object-diagram.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxObjectDiagramComponent implements OnInit {
+export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implements OnInit, AfterViewChecked {
     @ViewChildren('entity')
     public entityComponents?: QueryList<NgxObjectDiagramEntityComponent>;
 
@@ -46,17 +47,17 @@ export class NgxObjectDiagramComponent implements OnInit {
                     fieldName: key,
                     fieldKey: key,
                     value: entity[key],
-                    isAssoc: entity[key] instanceof Array<Record<string, unknown>>,
+                    isAssoc: entity[key] instanceof Array,
                 };
             });
     };
 
     @Input()
-    public set entities(value: Record<string, unknown>[]) {
-        this._entities = value;
+    public set entities(value: unknown[]) {
+        this._entities = value as T[];
         this._calculatePositions();
     }
-    public get entities(): Record<string, unknown>[] {
+    public get entities(): T[] {
         return this._entities;
     }
 
@@ -71,6 +72,9 @@ export class NgxObjectDiagramComponent implements OnInit {
     @Input()
     public maxTextLength = 20;
 
+    @Input()
+    public autoAdjustHeight = false;
+
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
 
@@ -80,14 +84,23 @@ export class NgxObjectDiagramComponent implements OnInit {
     public positions?: { [guid: string]: { x: number; y: number } };
 
     private _assocs: NgxObjectDiagramAssoc[] = [];
-    private _entities: Record<string, unknown>[] = [];
+    private _entities: T[] = [];
     private _entityWidth = 0;
+    private _initialHeight = 800;
 
     constructor(private _elementRef: ElementRef, private _cdr: ChangeDetectorRef) {}
 
     public ngOnInit() {
         this._entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
+        this._initialHeight =
+            parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-height'), 10) || 800;
         this._calculatePositions();
+    }
+
+    public ngAfterViewChecked() {
+        if (this.autoAdjustHeight) {
+            this._calculateHeight();
+        }
     }
 
     public onAction(entity: { guid: unknown }) {
@@ -96,6 +109,19 @@ export class NgxObjectDiagramComponent implements OnInit {
 
     public onAddAssoc(event: { guid: unknown; assocKey: string }) {
         this.addAssoc.emit(event);
+    }
+
+    private _calculateHeight() {
+        let largestHeight = this._initialHeight;
+
+        this.entities.forEach(entity => {
+            const height = (this.positions?.[entity[this.guidProp] + ''].y ?? 0) + (this.trackFields(entity).length + 1) * 40 - 35;
+            if (height > largestHeight) {
+                largestHeight = height;
+            }
+        });
+
+        document.documentElement.style.setProperty('--ngx-obj-diagram-height', largestHeight + 'px');
     }
 
     private _calculatePositions() {

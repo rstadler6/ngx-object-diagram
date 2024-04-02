@@ -7,6 +7,7 @@
             class="diagram"
             [entities]="(objs$ | async) ?? []"
             [assocs]="assocs"
+            [autoAdjustHeight]="true"
             (addAssoc)="addObj($event)"
             (executeAction)="doSomething($event)"
         ></ngx-object-diagram>
