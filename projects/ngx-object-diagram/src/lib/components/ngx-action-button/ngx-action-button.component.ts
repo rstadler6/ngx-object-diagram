@@ -16,6 +16,9 @@ export class NgxActionButtonComponent {
     @Input()
     public displayText = '↻';
 
+    @Input()
+    public displayTextXOffset = 3;
+
     @Output()
     public execute = new EventEmitter<void>();
 
