@@ -94,6 +94,9 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         this._entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
         this._initialHeight =
             parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-height'), 10) || 800;
+        if (this.autoAdjustHeight) {
+            this._calculateHeight();
+        }
         this._calculatePositions();
     }
 
