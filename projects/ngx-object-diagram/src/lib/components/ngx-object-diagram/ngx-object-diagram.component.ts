@@ -11,6 +11,7 @@ import {
     QueryList,
     ViewChild,
     ViewChildren,
+    HostListener
 } from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
 import { NgxObjectDiagramAssoc } from '../../model/ngx-object-diagram-assoc';
@@ -112,6 +113,22 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
 
     public onAddAssoc(event: { guid: unknown; assocKey: string }) {
         this.addAssoc.emit(event);
+    }
+
+    @HostListener('mousemove', ['$event'])
+    public onDrag(event: MouseEvent) {
+        const draggedEntitiy = this.entityComponents?.find(entity => entity.isDragging);
+
+        if (draggedEntitiy) {
+            event.preventDefault();
+            draggedEntitiy.point.x = event.offsetX - 100;
+            draggedEntitiy.point.y = event.offsetY + 15;
+        }
+    }
+
+    @HostListener('mouseup')
+    public onMouseUp() {
+        this.entityComponents?.forEach(entity => entity.isDragging = false)
     }
 
     private _calculateHeight() {
