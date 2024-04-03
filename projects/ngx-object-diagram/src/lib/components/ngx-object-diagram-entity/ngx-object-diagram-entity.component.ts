@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
 @Component({
     selector: '[ngx-object-diagram-entity]',
