@@ -7,7 +7,7 @@
         [y]="point.y"
         [text]="title + ''"
         [maxTextLength]="maxTextLength"
-        (mousedown)="onMousedown($event)"
+        (mousedown)="onDragDropStart()"
     ></g>
 
     <g *ngFor="let field of fields; let fi = index">

@@ -115,20 +115,26 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         this.addAssoc.emit(event);
     }
 
+    private _dragDropEntity: NgxObjectDiagramEntityComponent | undefined;
+
+    public onDragDropStart(event: { entity: NgxObjectDiagramEntityComponent }) {
+        this._dragDropEntity = event.entity;
+    }
+
     @HostListener('mousemove', ['$event'])
     public onDrag(event: MouseEvent) {
-        const draggedEntitiy = this.entityComponents?.find(entity => entity.isDragging);
-
-        if (draggedEntitiy) {
+        if (this._dragDropEntity) {
             event.preventDefault();
-            draggedEntitiy.point.x = event.offsetX - 100;
-            draggedEntitiy.point.y = event.offsetY + 15;
+            this._dragDropEntity.point.x = event.offsetX - 100;
+            this._dragDropEntity.point.y = event.offsetY + 15;
         }
     }
 
     @HostListener('mouseup')
     public onMouseUp() {
-        this.entityComponents?.forEach(entity => (entity.isDragging = false));
+        if (this._dragDropEntity) {
+            this._dragDropEntity = undefined;
+        }
     }
 
     private _calculateHeight() {

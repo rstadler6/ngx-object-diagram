@@ -35,11 +35,10 @@ export class NgxObjectDiagramEntityComponent {
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
 
     @Output()
-    public isDragging = false;
+    public startDragDrop = new EventEmitter<{ entity: NgxObjectDiagramEntityComponent }>();
 
-    public onMousedown(event: MouseEvent) {
-        event.preventDefault();
-        this.isDragging = true;
+    public onDragDropStart() {
+        this.startDragDrop.emit({ entity: this });
     }
 
     public onAction() {
