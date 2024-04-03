@@ -11,7 +11,7 @@ import {
     QueryList,
     ViewChild,
     ViewChildren,
-    HostListener
+    HostListener,
 } from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
 import { NgxObjectDiagramAssoc } from '../../model/ngx-object-diagram-assoc';
@@ -128,7 +128,7 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
 
     @HostListener('mouseup')
     public onMouseUp() {
-        this.entityComponents?.forEach(entity => entity.isDragging = false)
+        this.entityComponents?.forEach(entity => (entity.isDragging = false));
     }
 
     private _calculateHeight() {
