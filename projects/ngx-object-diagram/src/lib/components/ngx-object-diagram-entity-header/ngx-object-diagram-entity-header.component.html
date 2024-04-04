@@ -1,5 +1,5 @@
 <svg>
-    <rect stroke="#000" height="40" width="225" [attr.y]="y - 40" [attr.x]="x" fill="#fff" />
+    <rect stroke="#000" height="40" [attr.width]="entityWidth" [attr.y]="y - 40" [attr.x]="x" fill="#fff" />
     <text
         xml:space="preserve"
         text-anchor="start"
@@ -12,5 +12,5 @@
         [text]="text"
         [leaveSpace]="60"
     ></text>
-    <g ngx-action-button (execute)="onAction()" [x]="x + 195" [y]="y - 15" />
+    <g ngx-action-button (execute)="onAction()" [x]="x + entityWidth - 30" [y]="y - 15" />
 </svg>
