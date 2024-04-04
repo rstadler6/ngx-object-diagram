@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
 @Component({
     selector: '[ngx-object-diagram-entity]',
@@ -37,26 +37,11 @@ export class NgxObjectDiagramEntityComponent {
     @Output()
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
 
-    public isDragging = false;
+    @Output()
+    public startDragDrop = new EventEmitter<{ entity: NgxObjectDiagramEntityComponent }>();
 
-    public onMousedown() {
-        this.isDragging = true;
-    }
-
-    @HostListener('mouseup')
-    public onMouseUp() {
-        this.isDragging = false;
-    }
-
-    @HostListener('mousemove', ['$event'])
-    public onDrag(event: MouseEvent) {
-        if (!this.isDragging) {
-            return;
-        }
-
-        event.preventDefault();
-        this.point.x = event.offsetX - 100;
-        this.point.y = event.offsetY + 15;
+    public onDragDropStart() {
+        this.startDragDrop.emit({ entity: this });
     }
 
     public onAction() {

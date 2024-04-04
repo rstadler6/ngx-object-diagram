@@ -11,6 +11,7 @@ import {
     QueryList,
     ViewChild,
     ViewChildren,
+    HostListener,
 } from '@angular/core';
 import { NgxObjectDiagramEntityField } from '../../model/ngx-object-diagram-entity-field';
 import { NgxObjectDiagramAssoc } from '../../model/ngx-object-diagram-assoc';
@@ -96,6 +97,9 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         this.entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
         this._initialHeight =
             parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-height'), 10) || 800;
+        if (this.autoAdjustHeight) {
+            this._calculateHeight();
+        }
         this._calculatePositions();
     }
 
@@ -111,6 +115,28 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
 
     public onAddAssoc(event: { guid: unknown; assocKey: string }) {
         this.addAssoc.emit(event);
+    }
+
+    private _dragDropEntity: NgxObjectDiagramEntityComponent | undefined;
+
+    public onDragDropStart(event: { entity: NgxObjectDiagramEntityComponent }) {
+        this._dragDropEntity = event.entity;
+    }
+
+    @HostListener('mousemove', ['$event'])
+    public onDrag(event: MouseEvent) {
+        if (this._dragDropEntity) {
+            event.preventDefault();
+            this._dragDropEntity.point.x = event.offsetX - 100;
+            this._dragDropEntity.point.y = event.offsetY + 15;
+        }
+    }
+
+    @HostListener('mouseup')
+    public onMouseUp() {
+        if (this._dragDropEntity) {
+            this._dragDropEntity = undefined;
+        }
     }
 
     private _calculateHeight() {
