@@ -10,6 +10,7 @@
                 [entityWidth]="entityWidth"
                 [fields]="trackFields(entity)"
                 [guid]="entity[guidProp]"
+                [enableNavigation]="enableNavigation"
                 (executeAction)="onAction($event)"
                 (addAssoc)="onAddAssoc($event)"
                 (startDragDrop)="onDragDropStart($event)"

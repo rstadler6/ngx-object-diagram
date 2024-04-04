@@ -76,8 +76,14 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
     @Input()
     public autoAdjustHeight = false;
 
+    @Input()
+    public enableNavigation = false;
+
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
+
+    @Output()
+    public executeNavigate = new EventEmitter<{ guid: unknown }>()
 
     @Output()
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
@@ -88,7 +94,6 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
 
     private _assocs: NgxObjectDiagramAssoc[] = [];
     private _entities: T[] = [];
-    private _entityWidth = 0;
     private _initialHeight = 800;
 
     constructor(private _elementRef: ElementRef, private _cdr: ChangeDetectorRef) {}

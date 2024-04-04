@@ -22,8 +22,15 @@ export class NgxObjectDiagramEntityHeaderComponent {
     @Input()
     public entityWidth = 225;
 
+    @Input()
+    public enableNavigation = false;
+
     @Output()
     public executeAction = new EventEmitter<void>();
+
+    @Output()
+    public navigateAction = new EventEmitter<void>();
+
 
     public onAction() {
         this.executeAction.emit();

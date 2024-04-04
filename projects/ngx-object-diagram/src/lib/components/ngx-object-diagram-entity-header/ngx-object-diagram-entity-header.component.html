@@ -13,4 +13,5 @@
         [leaveSpace]="60"
     ></text>
     <g ngx-action-button (execute)="onAction()" [x]="x + entityWidth - 30" [y]="y - 15" />
+    <g ngx-action-button *ngIf="enableNavigation" (execute)="onAction()" [x]="x + entityWidth - 55" [y]="y - 15" displayText="🡕" />
 </svg>

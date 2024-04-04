@@ -2,6 +2,7 @@
     <g
         class="ngx-entity-header"
         ngx-object-diagram-entity-header
+        (navigateAction)="onNavigate()"
         (executeAction)="onAction()"
         [entityWidth]="entityWidth"
         [x]="point.x"
