@@ -7,7 +7,7 @@
         [y]="point.y"
         [text]="title + ''"
         [maxTextLength]="maxTextLength"
-        (mousedown)="onMousedown()"
+        (mousedown)="onDragDropStart()"
     ></g>
 
     <g *ngFor="let field of fields; let fi = index">
@@ -26,6 +26,7 @@
             *ngIf="field.isAssoc"
             ngx-action-button
             displayText="+"
+            [displayTextXOffset]="1"
             (execute)="onAddAssoc(field)"
             [x]="point.x + 195"
             [y]="point.y + 23 + fi * 40"
