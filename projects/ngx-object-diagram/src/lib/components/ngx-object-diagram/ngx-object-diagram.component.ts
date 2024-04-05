@@ -165,7 +165,7 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         let centerY = clientHeight / 2 - (entityHeight + 20);
 
         if (centerY <= 0)
-            centerY = 40;
+            centerY = 50;
 
         if (this.positions?.[entityGuid]) {
             newPositions[entityGuid] = this.positions[entityGuid];
@@ -174,7 +174,7 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         }
 
         const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
-        const angle = (2 * Math.PI) / this.entities.length;
+        
 
         const maxX = clientWidth - this.entityWidth - 10;
 
@@ -186,14 +186,36 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
             if (oldPos) {
                 newPositions[entityGuid] = oldPos;
             } else {
-                const x = Math.max(Math.min(centerX + radius * Math.cos(angle * (i - 1)), maxX), 10);
-                const y = Math.max(Math.min(centerY + radius * Math.sin(angle * (i - 1)), clientHeight - entityHeight), 50);
+                const pos = this._getEntityPos(i + 3, radius);
+                const x = Math.max(centerX + Math.min(pos.x, maxX), 10);
+                const y = Math.max(centerY + Math.min(pos.y, clientHeight - entityHeight), 50);
                 newPositions[entityGuid] = { x, y };
             }
         }
 
         this.positions = newPositions;
         this._cdr.detectChanges();
+    }
+
+    private _getEntityPos(entityIndex: number, radius: number): { x: number; y: number } {
+        if (entityIndex === 0) {
+            return { x: radius * Math.cos(0), y: radius * Math.sin(0) };
+        }
+
+        const exponent = Math.floor(Math.log2(entityIndex));
+        const divisions = Math.pow(2, exponent);
+        const pos = entityIndex - divisions;
+
+        const baseAngle = Math.PI * 2 * (Math.pow(0.5, exponent - 1))
+
+        let angle = (baseAngle / 2) + pos * baseAngle - Math.PI / 3
+        if (pos >= divisions / 2)
+            angle -= baseAngle / 2
+        radius = radius * Math.pow(1.08, Math.floor(divisions / 8));
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        return { x, y }
     }
 
     public x1(assoc: NgxObjectDiagramAssoc) {
