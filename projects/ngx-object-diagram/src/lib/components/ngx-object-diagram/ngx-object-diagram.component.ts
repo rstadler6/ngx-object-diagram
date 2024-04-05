@@ -162,21 +162,34 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         const clientHeight = this._elementRef.nativeElement.firstChild.clientHeight;
 
         const centerX = clientWidth / 2 - this.entityWidth / 2;
-        const centerY = clientHeight / 2 - (entityHeight + 20);
+        let centerY = clientHeight / 2 - (entityHeight + 20);
+
+        if (centerY <= 0)
+            centerY = 40;
+
+        if (this.positions?.[entityGuid]) {
+            newPositions[entityGuid] = this.positions[entityGuid];
+        } else {         
+            newPositions[entityGuid] = { x: centerX, y: centerY };
+        }
 
         const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
         const angle = (2 * Math.PI) / this.entities.length;
 
-        newPositions[entityGuid] = { x: centerX, y: centerY };
         const maxX = clientWidth - this.entityWidth - 10;
 
         for (let i = 1; i < this.entities.length; i++) {
             entityGuid = this.entities[i][this.guidProp] + '';
             entityHeight = this.trackFields(this.entities[i]).length * 30;
 
-            const x = Math.max(Math.min(centerX + radius * Math.cos(angle * (i - 1)), maxX), 10);
-            const y = Math.max(Math.min(centerY + radius * Math.sin(angle * (i - 1)), clientHeight - entityHeight), 50);
-            newPositions[entityGuid] = { x, y };
+            const oldPos = this.positions?.[entityGuid];
+            if (oldPos) {
+                newPositions[entityGuid] = oldPos;
+            } else {
+                const x = Math.max(Math.min(centerX + radius * Math.cos(angle * (i - 1)), maxX), 10);
+                const y = Math.max(Math.min(centerY + radius * Math.sin(angle * (i - 1)), clientHeight - entityHeight), 50);
+                newPositions[entityGuid] = { x, y };
+            }
         }
 
         this.positions = newPositions;
