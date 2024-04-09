@@ -31,6 +31,9 @@ export class NgxObjectDiagramEntityComponent {
     @Input()
     public entityWidth = 225;
 
+    @Input()
+    public xLeft = 0;
+
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
 

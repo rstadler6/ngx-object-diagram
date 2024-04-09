@@ -76,6 +76,9 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
     @Input()
     public autoAdjustHeight = false;
 
+    @Input()
+    public autoAdjustWidth = false;
+
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
 
@@ -90,6 +93,9 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
     private _entities: T[] = [];
     private _entityWidth = 0;
     private _initialHeight = 800;
+    private _initialWidth = 1200;
+    
+    public xLeft = 0;
 
     constructor(private _elementRef: ElementRef, private _cdr: ChangeDetectorRef) {}
 
@@ -97,8 +103,13 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         this.entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
         this._initialHeight =
             parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-height'), 10) || 800;
+        this._initialWidth =
+            parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-width'), 10) || 1200;
         if (this.autoAdjustHeight) {
             this._calculateHeight();
+        }
+        if (this.autoAdjustWidth) {
+            this._calculateWidth();
         }
         this._calculatePositions();
     }
@@ -106,6 +117,9 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
     public ngAfterViewChecked() {
         if (this.autoAdjustHeight) {
             this._calculateHeight();
+        }
+        if (this.autoAdjustWidth) {
+            this._calculateWidth();
         }
     }
 
@@ -152,7 +166,70 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         document.documentElement.style.setProperty('--ngx-obj-diagram-height', largestHeight + 'px');
     }
 
+    private _calculateWidth() {
+        let leftmost = 0;
+        let rightmost = this._initialWidth;
+
+        this.entities.forEach(entity => {
+            const x = (this.positions?.[entity[this.guidProp] + ''].x ?? 0);
+            if (x - this.entityWidth / 2 < leftmost) {
+                leftmost = x - this.entityWidth - 30;
+            } else if (x + this.entityWidth / 2 > rightmost) {
+                rightmost = x + this.entityWidth;
+            }
+                
+        });
+
+        const newWidth = Math.abs(leftmost) + rightmost + this.entityWidth * 2;
+        document.documentElement.style.setProperty('--ngx-obj-diagram-width', newWidth + 'px');
+        this.xLeft = leftmost;
+    }
+
+
     private _calculatePositions() {
+        if (this.autoAdjustHeight) {
+            console.log("growing")
+            this._calculatePositionsGrowing();
+        } else {
+            this._calculatePositionsDynamic();
+        }
+    }
+
+    private _calculatePositionsDynamic() {
+        const newPositions: { [guid: string]: { x: number; y: number } } = {};
+
+        let entityGuid = this.entities[0][this.guidProp] + '';
+        let entityHeight = this.trackFields(this.entities[0]).length * 10;
+
+        const clientWidth = this._elementRef.nativeElement.firstChild.clientWidth;
+        const clientHeight = this._elementRef.nativeElement.firstChild.clientHeight;
+
+        const centerX = clientWidth / 2 - this.entityWidth / 2;
+        let centerY = clientHeight / 2 - (entityHeight + 20);
+
+        if (centerY <= 0)
+            centerY = 50;
+
+        const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
+        const angle = (2 * Math.PI) / this.entities.length;
+
+        newPositions[entityGuid] = { x: centerX, y: centerY };
+        const maxX = clientWidth - this.entityWidth - 10;
+
+        for (let i = 1; i < this.entities.length; i++) {
+            entityGuid = this.entities[i][this.guidProp] + '';
+            entityHeight = this.trackFields(this.entities[i]).length * 30;
+
+            const x = Math.max(Math.min(centerX + radius * Math.cos(angle * (i - 1)), maxX), 10);
+            const y = Math.max(Math.min(centerY + radius * Math.sin(angle * (i - 1)), clientHeight - entityHeight), 50);
+            newPositions[entityGuid] = { x, y };
+        }
+
+        this.positions = newPositions;
+        this._cdr.detectChanges();
+    }
+
+    private _calculatePositionsGrowing() {
         const newPositions: { [guid: string]: { x: number; y: number } } = {};
 
         let entityGuid = this.entities[0][this.guidProp] + '';
@@ -173,8 +250,9 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
             newPositions[entityGuid] = { x: centerX, y: centerY };
         }
 
-        const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
-        
+        let radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
+        if (radius < entityHeight / 2)
+            radius = entityHeight;
 
         const maxX = clientWidth - this.entityWidth - 10;
 
