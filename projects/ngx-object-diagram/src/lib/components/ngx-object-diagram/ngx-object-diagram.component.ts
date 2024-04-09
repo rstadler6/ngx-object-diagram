@@ -167,7 +167,10 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         const clientHeight = this._elementRef.nativeElement.firstChild.clientHeight;
 
         const centerX = clientWidth / 2 - this.entityWidth / 2;
-        const centerY = clientHeight / 2 - (entityHeight + 20);
+        let centerY = clientHeight / 2 - (entityHeight + 20);
+
+        if (centerY <= 0)
+            centerY = 50;
 
         const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
         const angle = (2 * Math.PI) / this.entities.length;
