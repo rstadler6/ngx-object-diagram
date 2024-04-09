@@ -8,6 +8,7 @@
             [entities]="(objs$ | async) ?? []"
             [assocs]="assocs"
             [autoAdjustHeight]="true"
+            [enableNavigation]="true"
             (addAssoc)="addObj($event)"
             (executeAction)="doSomething($event)"
         ></ngx-object-diagram>

@@ -1,6 +1,7 @@
 <svg>
     <rect stroke="#000" height="40" [attr.width]="entityWidth" [attr.y]="y - 40" [attr.x]="x" fill="#fff" />
     <text
+        *ngIf="!enableNavigation"
         xml:space="preserve"
         text-anchor="start"
         font-size="19"
@@ -12,6 +13,19 @@
         [text]="text"
         [leaveSpace]="60"
     ></text>
+    <text
+        *ngIf="enableNavigation"
+        xml:space="preserve"
+        text-anchor="start"
+        font-size="19"
+        stroke-width="0"
+        class="ngx-obj-header-title"
+        [attr.y]="y - 15"
+        [attr.x]="x"
+        ngxSvgEllipsis
+        [text]="text"
+        [leaveSpace]="80"
+></text>
     <g ngx-action-button (execute)="onAction()" [x]="x + entityWidth - 30" [y]="y - 15" />
     <g ngx-action-button *ngIf="enableNavigation" (execute)="onAction()" [x]="x + entityWidth - 55" [y]="y - 15" displayText="🡕" />
 </svg>
