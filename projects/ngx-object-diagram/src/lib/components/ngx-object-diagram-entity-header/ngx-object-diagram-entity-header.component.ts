@@ -31,7 +31,6 @@ export class NgxObjectDiagramEntityHeaderComponent {
     @Output()
     public navigateAction = new EventEmitter<void>();
 
-
     public onAction() {
         this.executeAction.emit();
     }

@@ -36,7 +36,7 @@ export class NgxObjectDiagramEntityComponent {
 
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
-    
+
     @Output()
     public executeNavigate = new EventEmitter<{ guid: unknown }>();
 

@@ -83,13 +83,13 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
     public executeAction = new EventEmitter<{ guid: unknown }>();
 
     @Output()
-    public executeNavigate = new EventEmitter<{ guid: unknown }>()
+    public executeNavigate = new EventEmitter<{ guid: unknown }>();
 
     @Output()
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
 
     public positions?: { [guid: string]: { x: number; y: number } };
-    
+
     public entityWidth = 225;
 
     private _assocs: NgxObjectDiagramAssoc[] = [];
@@ -169,8 +169,9 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         const centerX = clientWidth / 2 - this.entityWidth / 2;
         let centerY = clientHeight / 2 - (entityHeight + 20);
 
-        if (centerY <= 0)
+        if (centerY <= 0) {
             centerY = 50;
+        }
 
         const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
         const angle = (2 * Math.PI) / this.entities.length;
