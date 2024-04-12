@@ -2,7 +2,10 @@
     <g
         class="ngx-entity-header"
         ngx-object-diagram-entity-header
+        (navigateAction)="onNavigate()"
         (executeAction)="onAction()"
+        [entityWidth]="entityWidth"
+        [enableNavigation]="enableNavigation"
         [x]="point.x"
         [y]="point.y"
         [text]="title + ''"
@@ -11,7 +14,7 @@
     ></g>
 
     <g *ngFor="let field of fields; let fi = index">
-        <rect height="40" width="225" [attr.x]="point.x" [attr.y]="point.y + fi * 40" fill="#ffffff" />
+        <rect height="40" [attr.width]="entityWidth" [attr.x]="point.x" [attr.y]="point.y + fi * 40" fill="#ffffff" />
         <text
             xml:space="preserve"
             text-anchor="start"
@@ -28,7 +31,7 @@
             displayText="+"
             [displayTextXOffset]="1"
             (execute)="onAddAssoc(field)"
-            [x]="point.x + 195"
+            [x]="point.x + (entityWidth - 30)"
             [y]="point.y + 23 + fi * 40"
         ></g>
     </g>

@@ -76,23 +76,30 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
     @Input()
     public autoAdjustHeight = false;
 
+    @Input()
+    public enableNavigation = false;
+
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
+
+    @Output()
+    public executeNavigate = new EventEmitter<{ guid: unknown }>();
 
     @Output()
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
 
     public positions?: { [guid: string]: { x: number; y: number } };
 
+    public entityWidth = 225;
+
     private _assocs: NgxObjectDiagramAssoc[] = [];
     private _entities: T[] = [];
-    private _entityWidth = 0;
     private _initialHeight = 800;
 
     constructor(private _elementRef: ElementRef, private _cdr: ChangeDetectorRef) {}
 
     public ngOnInit() {
-        this._entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
+        this.entityWidth = parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--entity-min-width'), 10);
         this._initialHeight =
             parseInt(getComputedStyle(this._elementRef.nativeElement).getPropertyValue('--ngx-obj-diagram-height'), 10) || 800;
         if (this.autoAdjustHeight) {
@@ -159,14 +166,18 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         const clientWidth = this._elementRef.nativeElement.firstChild.clientWidth;
         const clientHeight = this._elementRef.nativeElement.firstChild.clientHeight;
 
-        const centerX = clientWidth / 2 - this._entityWidth / 2;
-        const centerY = clientHeight / 2 - (entityHeight + 20);
+        const centerX = clientWidth / 2 - this.entityWidth / 2;
+        let centerY = clientHeight / 2 - (entityHeight + 20);
 
-        const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this._entityWidth, entityHeight) * 2;
+        if (centerY <= 0) {
+            centerY = 50;
+        }
+
+        const radius = Math.min(clientWidth, clientHeight) / 2 - Math.min(this.entityWidth, entityHeight) * 2;
         const angle = (2 * Math.PI) / this.entities.length;
 
         newPositions[entityGuid] = { x: centerX, y: centerY };
-        const maxX = clientWidth - this._entityWidth - 10;
+        const maxX = clientWidth - this.entityWidth - 10;
 
         for (let i = 1; i < this.entities.length; i++) {
             entityGuid = this.entities[i][this.guidProp] + '';
@@ -187,7 +198,7 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         }
         const xA = this.positions[assoc.guidA]?.x ?? 0;
         const xB = this.positions[assoc.guidB]?.x ?? 0;
-        return xA > xB ? xA : xA + this._entityWidth;
+        return xA > xB ? xA : xA + this.entityWidth;
     }
 
     public y1(assoc: NgxObjectDiagramAssoc) {
@@ -207,7 +218,7 @@ export class NgxObjectDiagramComponent<T extends Record<string, unknown>> implem
         }
         const xA = this.positions[assoc.guidA]?.x ?? 0;
         const xB = this.positions[assoc.guidB]?.x ?? 0;
-        return xB > xA ? xB : xB + this._entityWidth;
+        return xB > xA ? xB : xB + this.entityWidth;
     }
 
     public y2(assoc: NgxObjectDiagramAssoc) {

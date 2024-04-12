@@ -28,8 +28,17 @@ export class NgxObjectDiagramEntityComponent {
     @Input()
     public maxTextLength = 30;
 
+    @Input()
+    public entityWidth = 225;
+
+    @Input()
+    public enableNavigation = false;
+
     @Output()
     public executeAction = new EventEmitter<{ guid: unknown }>();
+
+    @Output()
+    public executeNavigate = new EventEmitter<{ guid: unknown }>();
 
     @Output()
     public addAssoc = new EventEmitter<{ guid: unknown; assocKey: string }>();
@@ -44,6 +53,11 @@ export class NgxObjectDiagramEntityComponent {
     public onAction() {
         this.executeAction.emit({ guid: this.guid });
     }
+
+    public onNavigate() {
+        this.executeNavigate.emit({ guid: this.guid });
+    }
+
     public onAddAssoc(field: NgxObjectDiagramEntityField) {
         this.addAssoc.emit({ guid: this.guid, assocKey: field.fieldKey });
     }
